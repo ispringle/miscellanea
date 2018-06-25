@@ -1,5 +1,5 @@
 import random
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def fern(array, iterations):
 	for i in range(iterations):
@@ -40,7 +40,14 @@ def plot(array):
 		plt.scatter(array[i][0], array[i][1])
 	plt.show()
 
+def to_file(array):
+	with open("b-fern-py.data", "a") as file:
+		for i in range(len(array)):
+			x = array[i][0]
+			y = array[i][1]
+			newline = str(x) + ", " + str(y) + "\n"
+			file.write(newline)
+
 array = [[0,0]]
-plot(fern(array, 10000))
-
-
+#plot(fern(array, 10000))
+to_file(fern(array,10000))
