@@ -23,11 +23,6 @@ int main () {
 	//fclose(fp);
 	fp = fopen("b-fern.data", "a");
 
-	double stem = 0;
-	double leaves = 0;
-	double lleaf = 0;
-	double rleaf = 0;
-
 	for (int i = 0; i < iterations; i++) {
 		double x = coord[0][0];
 		double y = coord[0][1];
@@ -39,32 +34,23 @@ int main () {
 		if (probability < 0.01) {								//stem
 			coord[1][0] =  0.00 * x +  0.00 * y +  0.00;
 			coord[1][1] =  0.00 * x +  0.16 * y +  0.00;
-			stem++;
 		}
 		else if (probability < 0.86) {							//successivley smaller leaflets
 			coord[1][0] =  0.85 * x +  0.04 * y +  0.00;
 			coord[1][1] = -0.04 * x +  0.85 * y +  1.60;
-			leaves++;
 		}
 		else if (probability < 0.93) {							//Largest left-handed leaflet
 			coord[1][0] =  0.20 * x + -0.26 * y +  0.00;
 			coord[1][1] =  0.23 * x +  0.22 * y +  1.60;
-			lleaf++;
 		}
 		else {													//Largest right-handed leaflet
 			coord[1][0] = -0.15 * x +  0.28 * y +  0.00;
 			coord[1][1] =  0.26 * x +  0.24 * y +  0.44;
-			rleaf++;
 		}
 
 		coord[0][0] = coord[1][0];
 		coord[0][1] = coord[1][1];
 	}
-	stem = stem / iterations;
-	leaves = leaves / iterations;
-	lleaf = lleaf / iterations;
-	rleaf = rleaf / iterations;
-	printf("%f %f %f %f\n", stem, leaves, lleaf, rleaf);
 	return 0;
 }
 
