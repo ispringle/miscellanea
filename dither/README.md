@@ -1,4 +1,4 @@
-#My Implementation of Floyd-Steinberg Dithering in C
+# My Implementation of Floyd-Steinberg Dithering in C
 
 This program uses libgd to manipulate the file. 
 
