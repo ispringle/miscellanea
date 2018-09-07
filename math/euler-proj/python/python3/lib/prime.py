@@ -79,6 +79,30 @@ def prime_factors(num):
 			factors.append(exp)
 	return factors
 
+def new_prime_factors(num):
+	factors = []
+	while num % 2 == 0:
+		factors.append(2)
+		num /= 2
+	i = 3
+	while i * i <= num:
+		while num % i == 0:
+			num /= i
+			factors.append(i)
+		i += 2
+	if num > 1:
+		factors.append(num)
+	oldFactors = factors
+	factors= list(set(factors))
+	for i in factors:
+		if oldFactors.count(i) > 1:
+			factors.pop(factors.index(i))
+			exp = []
+			for j in range(oldFactors.count(i)):
+				exp.append(i)
+			factors.append(exp)
+	return factors
+
 def gcd(a, b):
 	while b:
 		a, b = b, a % b
