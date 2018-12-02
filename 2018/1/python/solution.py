@@ -5,7 +5,7 @@ def partOne():
 
 def partTwo():
 	t_input = tuple(input)
-	prev = [0]
+	prev = set([0])
 	curr = list(t_input)
 	sum = 0
 	
@@ -19,7 +19,7 @@ def partTwo():
 		if sum in prev:
 			return sum
 		else:
-			prev.append(sum)
+			prev.add(sum)
 
 print(partOne())
 print(partTwo())
