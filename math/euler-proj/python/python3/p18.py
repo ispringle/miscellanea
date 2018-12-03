@@ -79,5 +79,11 @@ def bottoms_up(Matrix):
             sums.append(Matrix[-1][i])
             sums.append(Matrix[-1][i])
 
-def main(Matrix):
-    greedy(Matrix)
+def test(matrix):
+	for row in range(len(matrix) - 1, 0, -1):
+		for col in range(0, row):
+			matrix[row -1][col] += max(matrix[row][col], matrix[row][col+1])
+	return matrix[0][0]
+
+print(test(Triangle))
+			
