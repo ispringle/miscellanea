@@ -7,3 +7,18 @@ def iter_int(n):
 		n //= 10
 		iterable.insert(0, digit)
 	return iterable
+
+def collatz(n):
+	chain = []
+	if n == 1:
+		chain.append(n)
+		n = 4
+	while n > 1:
+		chain.append(n)
+		if n % 2 == 0:
+			n /= 2
+		else:
+			n = (n * 3) + 1
+		if n == 1:
+			chain.append(n)
+	return chain
