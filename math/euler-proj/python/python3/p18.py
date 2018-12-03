@@ -54,36 +54,12 @@ def greedy(Matrix):
     print(sum)
     print(path)
 
-#These are the Dynamic Programming functions
-def add_next(Matrix, row):
-    i = 0
-    for i in range(len(sums)):
-        if i == sums[0]:
-            sums[0] = sums[0] + Matrix[row][0]
-        elif i == sums[-1]:
-            sums[-1] = sums[-1] + Matrix[row][-1]
-        else:
-            sums[i] = sums[i] + Matrix
-
-
-
-def bottoms_up(Matrix):
-    #sums = Matrix[-1]
-    i = 0
-    for i in range(len(Matrix[-1])):
-        if i == 0:
-            sums.append(Matrix[-1][i])
-        elif i == (len(Matrix[-1]) - 1):
-            sums.append(Matrix[-1][i])
-        else:
-            sums.append(Matrix[-1][i])
-            sums.append(Matrix[-1][i])
-
-def test(matrix):
+#Actual working solution
+def getPath(matrix):
 	for row in range(len(matrix) - 1, 0, -1):
 		for col in range(0, row):
 			matrix[row -1][col] += max(matrix[row][col], matrix[row][col+1])
 	return matrix[0][0]
 
-print(test(Triangle))
+print(getPath(Triangle))
 			
