@@ -14,7 +14,7 @@ def react(polymer):
 def partOne(polymer):
 	return len(react(polymer))
 
-def partTwo(polyer):
+def partTwo(polymer):
 	optimized = len(polymer)
 	for char in string.ascii_lowercase:
 		test_polymer = polymer.replace(char, "").replace(char.upper(), "")
