@@ -5,8 +5,8 @@ from input import coords
 def distance(x, y, ix, iy):
 	return abs(x - ix) + abs(y - iy)
 
-#def distances(x, y):],
-	#return [distance(x, y, i[0], i[1]) for i in coords]
+def allDistances(x, y):
+	return [distance(x, y, i[0], i[1]) for i in coords]
 
 def ranges(coord):
 	r = {}
@@ -45,5 +45,9 @@ def partOne(coords):
 			c[grid[coord]] += 1
 	return c.most_common()[0]
 
+def partTwo(coords):
+	s = sum(sum(allDistances(x, y)) < 10000 for x in range(edges[2], edges[0]) for y in range(edges[3], edges[1]))
+	return s
 ans = partOne(coords)
 print(ans)
+print(partTwo(coords))
