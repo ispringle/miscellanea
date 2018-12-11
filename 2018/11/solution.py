@@ -1,6 +1,6 @@
 def powerLevel(x, y):
-	#gsn = 2568
-	gsn = 18
+	gsn = 2568
+	#gsn = 18
 	rackID = x + 10
 	power = rackID * y
 	power += gsn
@@ -11,31 +11,25 @@ def powerLevel(x, y):
 def squarePower(x, y, s):
 	return sum([sum([powerLevel(i, j) for j in range(y, y + s)]) for i in range(x, x + s)])
 
-def partOne():
-	grid = [[squarePower(x, y, 3) for x in range(1, 299)] for y in range(1, 299)]
-	best = max([max(i) for i in grid])
-	#return [[[x+1,y+1] for x in range(len(grid[y])) if grid[y][x] == best] for y in range(len(grid))]
-	loc = []
-	for y in range(len(grid)):
-		for x in range(len(grid[y])):
-			if grid[y][x] == best:
-				loc = [x + 1, y + 1]
-	return loc
+def partOne(size):
+	grid = {(x,y):squarePower(x, y, 3) for x in range(1, size - 1) for y in range(1, size - 1)}
+	return max(grid, key=lambda key: grid[key])
 
-def partTwo():
-	best = -1000000
-	loc = []
-	size = 0
-	for s in range(1,300):
-		grid = [[squarePower(x, y, 3) for x in range(1, 301 - s)] for y in range(1, 301 - s)]
-		for y in range(len(grid)):
-			for x in range(len(grid[y])):
-				if grid[y][x] > best:
-					best = grid[y][x]
-					loc = [x + 1, y + 1]
-					size = s
-	return loc + [size]
+def partTwo(size):
+	grid = [[0 for _ in range(size + 1)] for _ in range(size + 1)]
+	grid = [[powerLevel(x, y) for x in range(len(grid))] for y in range(len(grid))]
+	for x in range(1, size + 1):
+		for y in range(1, size + 1):
+			grid[x][y] = grid[x][y] + grid[x-1][y] + grid[x][y-1] - grid[x-1][y-1]
+	best = (0, (0, 0))
+	for s in range(1, size):
+		for x in range(1, size - s + 1):
+			for y in range(1, size - s + 1):
+				total = grid[x + s][y + s] - grid[x][y + s] - grid[x + s][y] + grid[x][y]
+				best = max(best, (total, (x +1, y+1, s)))
+	return best[1]
 
 
-print(partOne())
-#print(partTwo())
+
+print(partOne(300))
+print(partTwo(300))
