@@ -5,7 +5,8 @@ def parse_(instructions):
 	return [[i.split()[1], i.split()[7]] for i in instructions]
 
 def next_(valid):
-	return sorted(valid)[0]
+	if len(valid) > 0:
+		return sorted(valid)[0]
 
 def purge(instructions, purged):
 	return [i for i in instructions if i[0] != purged]
@@ -27,42 +28,32 @@ def partTwo(instructions):
 	alphabet = sorted(list("qwertyuiopasdfghjklzxcvbnm"))
 	elf_count = 5
 	time_mod = 60
-	elves = {i: {'e': None, 'w': False, 'i': ''} for i in range(elf_count)}
 	times = {alpha: sec + 1 + time_mod for sec, alpha in enumerate(alphabet)}
 	instructions = parse_(instructions)
 	valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
 	last = set([i[1] for i in instructions if i[1] not in [j[0] for j in instructions]])
 	ordered = ''
-	time = 0
-	working = True
-	unavailable = []
-	while working:
-		for elf in elves.keys():
-			valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
-			valid = [i for i in valid if i not in unavailable]
-			if elves[elf]['w']:
-				working = True
-				if elves[elf]['e'] == time:
-					elves[elf]['w'] = False
-					ordered += elves[elf]['i']
-					instructions = purge(instructions, n)
-					del unavailable[unavailable.index(elves[elf]['i'])]
-					elves[elf]['i'] = ''
-			elif len(valid) > 0:
-				n = next_(valid)
-				unavailable.append(n)
-				elves[elf]['i'] = n
-				elves[elf]['e'] = time + times[n.lower()]
-				elves[elf]['w'] = True
-		working = False
-		for elf in elves.keys():
-			if elves[elf]['w']:
-				working = True
-		time += 1
-		print(time)
-		print(valid)
-		print(unavailable)
-		print(elves)
+	working = []
+	while len(valid) > 0:
+		for elf in range(elf_count):
+			n = next_([i for i in list(valid) if i not in [j[0] for j in working]])
+			if len(working) < elf_count and n not in [i[0] for i in working] and n is not None:
+				working.append([n, times[n.lower()]])
+				#print(working)
+				#i = working.index([i for i in working if n in i][0][0])
+		completed = ['letter',10000]
+		for elf in working:
+			if elf[1] < completed[1]:
+				completed[0] = elf[0]
+				completed[1] = elf[1]
+		for elf in working:
+			elf[1] -= completed[1]
+		print(working)
+		fin = completed[0]
+		ordered += fin
+		instructions = purge(instructions, fin)
+		valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
+		del working[working.index([i for i in working if fin in i][0])]
 	ordered += next_(last)
 	return ordered
 
