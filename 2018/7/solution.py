@@ -18,6 +18,7 @@ def partOne(instructions):
 	ordered = ''
 	while len(valid) > 0:
 		n = next_(valid)
+		print(valid)
 		ordered += n
 		instructions = purge(instructions, n)
 		valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
@@ -34,6 +35,7 @@ def partTwo(instructions):
 	last = set([i[1] for i in instructions if i[1] not in [j[0] for j in instructions]])
 	ordered = ''
 	working = []
+	total = 0
 	while len(valid) > 0:
 		for elf in range(elf_count):
 			n = next_([i for i in list(valid) if i not in [j[0] for j in working]])
@@ -42,20 +44,20 @@ def partTwo(instructions):
 				#print(working)
 				#i = working.index([i for i in working if n in i][0][0])
 		completed = ['letter',10000]
+		print(working)
 		for elf in working:
 			if elf[1] < completed[1]:
 				completed[0] = elf[0]
 				completed[1] = elf[1]
 		for elf in working:
 			elf[1] -= completed[1]
-		print(working)
+		total += completed[1]
 		fin = completed[0]
-		ordered += fin
 		instructions = purge(instructions, fin)
 		valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
 		del working[working.index([i for i in working if fin in i][0])]
-	ordered += next_(last)
-	return ordered
+	total += times[next_(last).lower()]
+	return total
 
 test = [
 		"Step C must be finished before step A can begin.",
