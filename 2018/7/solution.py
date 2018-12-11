@@ -18,7 +18,6 @@ def partOne(instructions):
 	ordered = ''
 	while len(valid) > 0:
 		n = next_(valid)
-		print(valid)
 		ordered += n
 		instructions = purge(instructions, n)
 		valid = set([i[0] for i in instructions if i[0] not in [j[1] for j in instructions]])
@@ -41,10 +40,7 @@ def partTwo(instructions):
 			n = next_([i for i in list(valid) if i not in [j[0] for j in working]])
 			if len(working) < elf_count and n not in [i[0] for i in working] and n is not None:
 				working.append([n, times[n.lower()]])
-				#print(working)
-				#i = working.index([i for i in working if n in i][0][0])
 		completed = ['letter',10000]
-		print(working)
 		for elf in working:
 			if elf[1] < completed[1]:
 				completed[0] = elf[0]
