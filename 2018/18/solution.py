@@ -100,10 +100,17 @@ def partOne(land):
 
 def partTwo(land):
 	count = 1000000000
-	for minute in range(count):
+	prior = []
+	for minute in range(1,1000):
 		land = increment(land)
-	totals = countResources(land)
-	return totals['#'] * totals['|']
-#print(countSurrounding(parse_(test), [9,2]))
+		if land in prior:
+			x = prior.index(land)
+			interval = minute - (1 + x)
+			while (1 + x) % interval != count % interval:
+				x += 1
+			count = countResources(prior[x])
+			return count['#'] * count['|']
+		prior.append(land)
+
 print(partOne(parse_(initial)))
 print(partTwo(parse_(initial)))
