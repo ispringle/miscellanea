@@ -22,3 +22,13 @@ def collatz(n):
 		if n == 1:
 			chain.append(n)
 	return chain
+
+def divisors(n):
+	divs = []
+	divisor = 0
+	while n > 1:
+		divisor += 1
+		if n % divisor == 0:
+			divs.append(divisor)
+	return divs
+
