@@ -1,36 +1,21 @@
-fn fib(max: isize ) -> Vec<isize>  {
-    let mut seq: Vec<isize> = Vec::new();
-    let mut prev: isize = 1;
-    let mut curr: isize = 2;
-    let mut next: isize;
-    
-    seq.push(prev);
-    seq.push(curr);
-
-    while curr < max {
-        next = curr + prev;
-        prev = curr;
-        curr = next;
-        seq.push(next);
+fn fib_seq_under(max: usize) -> Vec<usize> {
+    let mut seq = vec![0,1];
+    while seq.last() < Some(&max) {
+        let length = seq.len();
+        let prev = seq.get(length - 2).unwrap();
+        let curr = seq.get(length - 1).unwrap();
+        seq.push(prev + curr);
     }
-
-    seq
-}
-
-fn get_evens(seq: Vec<isize>) -> Vec<isize> {
-    let mut evens: Vec<isize> = Vec::new();
-    for n in seq {
-        if n % 2 == 0 {
-            evens.push(n)
-        }
-    }
-    evens
+    let length = seq.len();
+    seq[0..length - 1].to_vec()
 }
 
 fn main() {
-    let seq: Vec<isize> = fib(4_000_000);
-    let evens: Vec<isize> = get_evens(seq);
-    let summed: isize = evens.iter().sum();
-    println!("{}", summed);
+    let limit = 4_000_000usize;
+    let seq = fib_seq_under(limit);
+    let sum = seq.iter()
+        .filter(|&n| n % 2 == 0)
+        .fold(0, |a, b| a + b);
+    println!("{:#?}", sum);
 }
 
