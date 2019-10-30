@@ -1,0 +1,9 @@
+{"compile":[
+["/home/ian/code/nim/fizzbuzz/src/nimcache/nim_nim.c", "gcc -c  -w  -I/usr/lib/nim -o /home/ian/code/nim/fizzbuzz/src/nimcache/nim_nim.o /home/ian/code/nim/fizzbuzz/src/nimcache/nim_nim.c"]
+],
+"link":[
+"/home/ian/code/nim/fizzbuzz/src/nimcache/nim_nim.o",
+"/home/ian/code/nim/fizzbuzz/src/nimcache/stdlib_system.o"
+],
+"linkcmd": "gcc   -o /home/ian/code/nim/fizzbuzz/nim  /home/ian/code/nim/fizzbuzz/src/nimcache/nim_nim.o /home/ian/code/nim/fizzbuzz/src/nimcache/stdlib_system.o    -ldl"
+}
