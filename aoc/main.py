@@ -18,5 +18,15 @@ if __name__ == "__main__":
     except ModuleNotFoundError:
         print("No module has been created for AOC {year}/{day} yet!")
 
-    solution = solver.solve()
-    submit(solution, day=day, year=year)
+    solutions = solver.solve()
+    if solutions[1] and not solutions[1]:
+        submit(solutions[0], part="a", day=day, year=year)
+        print(solutions[0])
+    elif solutions[2]:
+        submit(solutions[0], part="a", day=day, year=year)
+        submit(solutions[1], part="b", day=day, year=year)
+        print(solution[0])
+        print(solution[1])
+    else:
+        print("Something might be wrong with the returned solution!")
+        print(solution)
