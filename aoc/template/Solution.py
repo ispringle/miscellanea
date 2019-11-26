@@ -4,4 +4,5 @@ def solve(puzzle):
     return (a, b)
 
 if __name__ == "__main__":
-    solve(puzzle)
+    import sys
+    print(solve(sys.argv[1]))
