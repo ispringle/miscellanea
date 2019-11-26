@@ -1,0 +1,3 @@
+#!/bin/bash
+cookie=`<./SECRET`
+export AOC_SESSION=$cookie

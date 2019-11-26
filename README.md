@@ -4,7 +4,9 @@ Advent of Code
 ## Install
 
 1. `pip install -r requirements.txt`
-1. `export AOC_SESSION="my_AOC_session"`
+1. `export AOC_SESSION="my_AOC_session"` or create a file named
+"SECRET" with the session id inside of it. Then run
+`source set_auth`
 
 ## Usage
 
