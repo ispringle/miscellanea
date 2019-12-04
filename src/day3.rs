@@ -31,8 +31,8 @@ fn parse_line(line: &str) -> Coord {
     .collect()
 }
 
-fn distance(coord: &(isize, isize)) -> isize {
-    coord.0.abs() + coord.1.abs()
+fn distance(coord: &(isize, isize)) -> usize {
+    coord.0.abs() as usize + coord.1.abs() as usize
 }
 
 #[aoc_generator(day3)]
@@ -42,7 +42,7 @@ pub fn input_generator(input: &str) -> Coords {
 }
 
 #[aoc(day3, part1)]
-pub fn solve_a(input: &Coords) -> isize {
+pub fn solve_a(input: &Coords) -> usize {
     let circuit_a: HashSet<_> = input.0.iter().cloned().collect();
     let circuit_b: HashSet<_> = input.1.iter().cloned().collect();
     let intersections = circuit_a.intersection(&circuit_b);
@@ -51,13 +51,15 @@ pub fn solve_a(input: &Coords) -> isize {
 }
 
 #[aoc(day3, part2)]
-pub fn solve_b(input: &Coords) -> isize {
+pub fn solve_b(input: &Coords) -> usize {
     let circuit_a: HashSet<_> = input.0.iter().cloned().collect();
     let circuit_b: HashSet<_> = input.1.iter().cloned().collect();
     let intersections = circuit_a.intersection(&circuit_b);
-    let quickest = intersections.map(|coord|
-                                     circuit_a.iter().position(|x| x == coord).unwrap() +
-                                     circuit_b.iter().position(|x| x == coord).unwrap() + 2)
+    let quickest = intersections
+                    .map(|coord|
+                         circuit_a.iter().position(|x| x == coord).unwrap() +
+                         circuit_b.iter().position(|x| x == coord).unwrap() + 2)
         .min();
-    quickest.unwrap() as isize
+    quickest.unwrap()
 }
+
