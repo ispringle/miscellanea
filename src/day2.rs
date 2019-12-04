@@ -1,25 +1,28 @@
-use std::fs;
-use crate::utils::intcomp::Intcomp;
+use aoc_runner_derive::{aoc, aoc_generator};
 use crate::utils::intcomp::Puzzle;
+use crate::utils::intcomp::Intcomp;
 
-fn import_data(file_path: String) -> Puzzle {
-    fs::read_to_string(file_path).unwrap()
-        .trim().split(',')
-        .map(|n| n.parse().unwrap())
-        .collect()
+#[aoc_generator(day2)]
+pub fn input_generator(input: &str) -> Puzzle {
+        input
+            .trim().split(',')
+            .map(|n| n.parse().unwrap())
+            .collect()
 }
 
-fn solve_a(puzzle: Puzzle) -> isize {
-    let mut intcomp: Intcomp = Intcomp::new(puzzle);
+#[aoc(day2, part1)]
+pub fn solve_a(input: &Puzzle) -> isize {
+    let mut intcomp: Intcomp = Intcomp::new(input.to_vec());
     intcomp.set_input(12, 2);
     intcomp.run();
     intcomp.get_loc(0)
 }
 
-fn solve_b(puzzle: Puzzle) -> Option<isize> {
+#[aoc(day2, part2)]
+pub fn solve_b(input: &Puzzle) -> Option<isize> {
     for noun in 0..100 {
         for verb in 0..100 {
-            let mut intcomp: Intcomp = Intcomp::new(puzzle.clone());
+            let mut intcomp: Intcomp = Intcomp::new(input.clone());
             intcomp.set_input(noun, verb);
             intcomp.run();
             if intcomp.get_loc(0) == 19690720 {
@@ -28,10 +31,4 @@ fn solve_b(puzzle: Puzzle) -> Option<isize> {
         }
     }
     None
-}
-
-pub fn solve() {
-    let puzzle: Puzzle = import_data("./data/02".to_string());
-    println!("Part A answer: {}", solve_a(puzzle.clone()));
-    println!("Part B answer: {}", solve_b(puzzle).unwrap());
 }
