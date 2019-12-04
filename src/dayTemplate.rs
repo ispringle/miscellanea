@@ -1,3 +1,5 @@
+use aoc_runner_derive::{aoc, aoc_generator};
+
 #[aoc_generator(day1)]
 pub fn input_generator(input: &str) -> Option<T> {
     Some(input)

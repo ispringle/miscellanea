@@ -4,4 +4,6 @@ extern crate aoc_runner;
 
 use aoc_runner_derive::aoc_main;
 
+mod utils;
+
 aoc_main! { lib = aoc_rust }
