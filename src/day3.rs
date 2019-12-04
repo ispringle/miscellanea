@@ -55,22 +55,13 @@ pub fn solve_b(input: &Coords) -> usize {
     let circuit_a: HashSet<_> = input.0.iter().cloned().collect();
     let circuit_b: HashSet<_> = input.1.iter().cloned().collect();
     let intersections = circuit_a.intersection(&circuit_b);
+    let (circuit_a, circuit_b) = input;
     let quickest = intersections
                     .map(|coord|
-                         {
-                             let total_dist = circuit_a
-                                                .iter()
-                                                .position(|x| x == coord).unwrap()
-                                            + 1
-                                            + circuit_b
-                                                .iter()
-                                                .position(|x| x == coord).unwrap()
-                                            + 1;
-                             (total_dist, coord)
-                         }
-                        )
-        .min_by_key(|x| x.0)
-        .unwrap();
-    quickest.0
+                         circuit_a.iter().position(|x| x == coord).unwrap() +
+                         circuit_b.iter().position(|x| x == coord).unwrap() + 2)
+                    .min()
+                    .unwrap();
+    quickest
 }
 
