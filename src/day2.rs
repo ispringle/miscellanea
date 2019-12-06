@@ -12,7 +12,7 @@ pub fn input_generator(input: &str) -> Puzzle {
 
 #[aoc(day2, part1)]
 pub fn solve_a(input: &Puzzle) -> isize {
-    let mut intcomp: Intcomp = Intcomp::new(input.to_vec());
+    let mut intcomp: Intcomp = Intcomp::new(input.to_vec(), None);
     intcomp.set_input(12, 2);
     intcomp.run();
     intcomp.get_loc(0)
@@ -22,7 +22,7 @@ pub fn solve_a(input: &Puzzle) -> isize {
 pub fn solve_b(input: &Puzzle) -> Option<isize> {
     for noun in 0..100 {
         for verb in 0..100 {
-            let mut intcomp: Intcomp = Intcomp::new(input.clone());
+            let mut intcomp: Intcomp = Intcomp::new(input.clone(), None);
             intcomp.set_input(noun, verb);
             intcomp.run();
             if intcomp.get_loc(0) == 19690720 {

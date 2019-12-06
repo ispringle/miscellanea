@@ -4,15 +4,23 @@ pub struct Intcomp {
     intcode: Vec<isize>,
     curr_pos: usize,
     curr_optcode: isize,
+    input: isize,
+    output: isize,
 }
 
 impl Intcomp {
-    pub fn new(intcode: Vec<isize>) -> Intcomp {
+    pub fn new<T: Into<Option<isize>>>(intcode: Vec<isize>, param: T) -> Intcomp {
         Intcomp{
             intcode: intcode.clone(),
             curr_pos: 0,
-            curr_optcode: intcode[0]
+            curr_optcode: intcode[0],
+            input: param.into().unwrap_or(0),
+            output: 0,
         }
+    }
+
+    pub fn get_output(&self) -> isize {
+        self.output
     }
 
     pub fn set_input(&mut self, noun: isize, verb: isize) {
@@ -29,6 +37,8 @@ impl Intcomp {
             match self.curr_optcode {
                 1 => self._add(),
                 2 => self._multiply(),
+                3 => self._save_to(),
+                4 => self._get_from(),
                 99 => return,
                 _ => ()
             }
@@ -50,5 +60,16 @@ impl Intcomp {
         let loc_z = self.intcode[self.curr_pos + 3] as usize;
         self.intcode[loc_z] = self.intcode[loc_x] * self.intcode[loc_y];
     }
+
+    fn _save_to(&mut self) {
+        let loc_x = self.intcode[self.curr_pos + 1] as usize;
+        self.intcode[loc_x] = self.input;
+    }
+
+    fn _get_from(&mut self) {
+        let loc_x = self.intcode[self.curr_pos + 1] as usize;
+        self.intcode[loc_x] = self.input;
+    }
+
 
 }
