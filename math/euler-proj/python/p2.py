@@ -22,17 +22,4 @@ def fib(max):
     return sequence
 
 
-def get_evens(numbers):
-    return [x for x in numbers if is_even(x)]
-
-
-def is_even(num):
-    if num % 2 == 0:
-        return True
-    else:
-        return False
-
-
-sequence = fib(4000000)
-evens = get_evens(sequence)
-print(sum(evens))
+print(sum([x for x in fib(4000000) if x % 2 == 0]))
