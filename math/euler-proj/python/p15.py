@@ -9,7 +9,7 @@ paths = 1
 
 i = 0
 while i < gridSize:
-	paths *= (2 * gridSize) - i
-	paths /= i + 1
-	i += 1
+    paths *= (2 * gridSize) - i
+    paths /= i + 1
+    i += 1
 print(paths)

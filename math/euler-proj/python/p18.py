@@ -13,15 +13,10 @@ Triangle = [
     [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
     [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
     [63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
-    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]
+    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],
 ]
 
-Triangle2 = [           #Test, answer is 3, 7, 4, 9
-    [3],
-    [7, 4],
-    [2, 4, 6],
-    [8, 5, 9, 3]
-]
+Triangle2 = [[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]  # Test, answer is 3, 7, 4, 9
 
 sum = 0
 path = []
@@ -31,35 +26,38 @@ num = 0
 sums = []
 
 
-#These are the "greedy" functions
+# These are the "greedy" functions
 def add(Matrix, x, y):
     global sum
     sum += Matrix[x][y]
     path.append(Matrix[x][y])
 
+
 def next(Matrix):
     global num, row
-    if Matrix[row+1][num] > Matrix[row+1][num+1]:
-        add(Matrix, row+1, num)
-        row+= 1
+    if Matrix[row + 1][num] > Matrix[row + 1][num + 1]:
+        add(Matrix, row + 1, num)
+        row += 1
     else:
-        add(Matrix, row+1, num+1)
+        add(Matrix, row + 1, num + 1)
         row += 1
         num += 1
 
+
 def greedy(Matrix):
-    add(Matrix, num, row) #initializes path[] and sum with Matrix[0][0]
-    for i in range(len(Matrix)-1):
+    add(Matrix, num, row)  # initializes path[] and sum with Matrix[0][0]
+    for i in range(len(Matrix) - 1):
         next(Matrix)
     print(sum)
     print(path)
 
-#Actual working solution
+
+# Actual working solution
 def getPath(matrix):
-	for row in range(len(matrix) - 1, 0, -1):
-		for col in range(0, row):
-			matrix[row -1][col] += max(matrix[row][col], matrix[row][col+1])
-	return matrix[0][0]
+    for row in range(len(matrix) - 1, 0, -1):
+        for col in range(0, row):
+            matrix[row - 1][col] += max(matrix[row][col], matrix[row][col + 1])
+    return matrix[0][0]
+
 
 print(getPath(Triangle))
-			

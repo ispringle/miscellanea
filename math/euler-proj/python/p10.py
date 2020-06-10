@@ -8,4 +8,3 @@ from lib.prime import *
 goal = 2000000
 
 print(sum(sieve(goal)))
-
