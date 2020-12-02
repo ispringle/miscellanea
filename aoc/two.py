@@ -1,4 +1,5 @@
 from collections import Counter
+import re
 
 
 class Solver:
@@ -6,14 +7,8 @@ class Solver:
         self.input = self.parse(input_file)
 
     def parse(self, input_file):
-        data = []
-        with open(input_file, 'r') as f:
-            for line in f.readlines():
-                l = line.split()
-                m, x = l[0].split("-")
-                c = l[1].strip(":")[0]
-                data.append([int(m), int(x), c, l[-1]])
-        return data
+        data = [re.split("[: \-]", line) for line in open(input_file)]  # Noqa: W605, E501
+        return [[int(a), int(b), c, d] for a, b, c, _, d in data]
 
     def part_one(self):
         correct = 0
