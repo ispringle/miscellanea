@@ -6,6 +6,7 @@ extern crate lazy_static;
 
 mod one;
 mod two;
+mod three;
 
 fn main() {
     let input_file = std::env::args().nth(1).expect("No input file given");
@@ -17,6 +18,7 @@ fn main() {
     match day {
         "1" => one::solve(contents),
         "2" => two::solve(contents),
+        "3" => three::solve(contents),
         _ => {println!("Solution for day {} does not exist.", day)},
     }
 }
