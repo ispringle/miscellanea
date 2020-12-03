@@ -8,8 +8,8 @@ pub fn solve(input: String) {
     let input = parse(input);
     let answer_one = part_one(input.clone());
     println!("Part one: {}", answer_one);
-    // let answer_two = part_two(input.clone());
-    // println!("Part one: {}", answer_two);
+    let answer_two = part_two(input.clone());
+    println!("Part one: {}", answer_two);
 }
 
 fn parse(input: String) -> Vec<Option<(usize, usize, char, String)>> {
@@ -37,5 +37,14 @@ fn part_one(input: Vec<Option<(usize, usize, char, String)>>) -> usize {
 }
 
 fn part_two(input: Vec<Option<(usize, usize, char, String)>>) -> usize {
-    todo!()
+    input.iter()
+        .map(|i| {
+            let (m, x, ch, p) = i.as_ref().unwrap();
+            Some((p.chars().nth(m - 1)?, p.chars().nth(x - 1)?, *ch))
+        })
+        .filter(|i| {
+            let (m, x, c) = i.as_ref().unwrap();
+            (m == c) != (x == c)
+        })
+        .count()
 }
