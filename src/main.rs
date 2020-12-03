@@ -1,7 +1,11 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+#[macro_use]
+extern crate lazy_static;
+
 mod one;
+mod two;
 
 fn main() {
     let input_file = std::env::args().nth(1).expect("No input file given");
@@ -12,6 +16,7 @@ fn main() {
     let day: &str = input_file.split("/").last().unwrap();
     match day {
         "1" => one::solve(contents),
+        "2" => two::solve(contents),
         _ => {println!("Solution for day {} does not exist.", day)},
     }
 }
