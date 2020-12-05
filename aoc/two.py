@@ -34,5 +34,5 @@ class Solver:
     def solve(self):
         print(f"Part One: {self.part_one()}")
         s = self.part_two()
-        if s != None:  # Noqa E203
+        if s is not None:
             print(f"Part Two: {s}")
