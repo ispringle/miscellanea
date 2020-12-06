@@ -7,6 +7,7 @@ module_dict = {
     "3": "three",
     "4": "four",
     "5": "five",
+    "6": "six",
 }
 
 
