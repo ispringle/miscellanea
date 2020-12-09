@@ -16,6 +16,6 @@ fn part_one(input: String) -> usize {
         .sum()
 }
 
-fn part_two(input: String) -> usize {
+fn _part_two(_input: String) -> usize {
     todo!()
 }
