@@ -10,6 +10,7 @@ module_dict = {
     "6": "six",
     "7": "seven",
     "8": "eight",
+    "9": "nine",
 }
 
 
