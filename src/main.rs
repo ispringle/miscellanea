@@ -9,6 +9,7 @@ mod two;
 mod three;
 mod six;
 mod eight;
+mod nine;
 
 fn main() {
     let input_file = std::env::args().nth(1).expect("No input file given");
@@ -23,6 +24,7 @@ fn main() {
         "3" => three::solve(contents),
         "6" => six::solve(contents),
         "8" => eight::solve(contents),
+        "9" => nine::solve(contents),
         _ => {println!("Solution for day {} does not exist.", day)},
     }
 }
