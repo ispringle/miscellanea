@@ -22,15 +22,12 @@ class Solver:
             prior = prior[1:] + [n]
 
     def part_two(self):
-        lower, x = 0, 0
-        for upper in range(len(self.input)):
-            x += self.input[upper]
-            while lower <= upper and x > self.target:
-                x -= self.input[lower]
-                lower += 1
-            if x == self.target:
-                contig = self.input[lower:upper]
-                return min(contig) + max(contig)
+        low = 0
+        for hi in range(len(self.input)):
+            while low <= hi and sum(self.input[low:hi]) > self.target:
+                low += 1
+            if sum(self.input[low:hi]) == self.target:
+                return min(self.input[low:hi]) + max(self.input[low:hi])
 
     def solve(self):
         print(f"Part One: {self.part_one()}")
