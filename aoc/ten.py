@@ -1,28 +1,28 @@
-from itertools import product
+from collections import Counter
 
 
 class Solver:
     def __init__(self, input_file):
         self.input = self.parse(input_file)
+        self.input.append(self.input[-1] + 3)
 
     def parse(self, input_file):
-        return [int(x) for x in open(input_file).readlines()]
+        return sorted([int(x) for x in open(input_file).readlines()])
 
     def part_one(self):
-        joltage, ones, threes = 0, 0, 1
-        for n in sorted(self.input):
+        joltage = 0
+        diffs = [0, 0, 0, 0]
+        for n in self.input:
             if (i := n - joltage) <= 3:
                 joltage = n
-                if i == 1:
-                    ones += 1
-                elif i == 3:
-                    threes += 1
-            else:
-                break
-        return ones * threes
+                diffs[i] += 1
+        return diffs[1] * diffs[3]
 
     def part_two(self):
-        return None
+        c = Counter([0])
+        for j in self.input:
+            c[j] = c[j - 1] + c[j - 2] + c[j - 3]
+        return c[self.input[-1]]
 
     def solve(self):
         print(f"Part One: {self.part_one()}")
