@@ -39,6 +39,39 @@ class Solver:
                 neighbors += 1 if grid[coord+1-w] == OCCUPIED else 0
         return neighbors
 
+    def count_visible(self, x, y, grid):
+        coord, w, visible = self.idx(x, y), self.width, 0
+        min_x = False if x > 0 else True
+        max_x = False if x < w - 1 else True
+        min_y = False if y > 0 else True
+        max_y = False if y < self.height - 1 else True
+
+        if not min_x:
+            leftward = ''.join(reversed(grid[self.idx(0, y):coord-1]))
+            print(leftward)
+            le = leftward.find(EMPTY)
+            lo = leftward.find(OCCUPIED)
+            visible += 1 if lo < le and lo != -1 else 0
+        if not max_x:
+            rightward = ''.join(grid[coord+1:self.idx(w-1, y)])
+            re = rightward.find(EMPTY)
+            ro = rightward.find(OCCUPIED)
+            visible += 1 if ro < re and ro != -1 else 0
+
+        if not min_y:
+            upward = ''.join(reversed([grid[i] for i in range(0, coord, w)]))
+            ue = upward.find(EMPTY)
+            uo = upward.find(OCCUPIED)
+            visible += 1 if uo < ue and uo != -1 else 0
+
+        if not max_y:
+            downward = ''.join([grid[i] for i in range(coord+1, len(grid), w)])
+            de = downward.find(EMPTY)
+            do = downward.find(OCCUPIED)
+            visible += 1 if do < de and do != -1 else 0
+
+        return visible
+
     def idx(self, x, y):
         return y * self.width + x
 
@@ -68,7 +101,24 @@ class Solver:
         return grid.count(OCCUPIED)
 
     def part_two(self):
-        return None
+        grid = self.input[:]
+        while True:
+            prior = grid[:]
+            self.print_grid(grid)
+            for y in range(self.height):
+                for x in range(self.width):
+                    square = grid[self.idx(x, y)]
+                    if square == FLOOR:
+                        continue
+                    n = self.count_neighbors(x, y, prior) \
+                        + self.count_visible(x, y, prior)
+                    if square == EMPTY and n == 0:
+                        grid[self.idx(x, y)] = OCCUPIED
+                    if square == OCCUPIED and n >= 5:
+                        grid[self.idx(x, y)] = EMPTY
+            if grid == prior:
+                break
+        return grid.count(OCCUPIED)
 
     def print_grid(self, grid):
         w = self.width
