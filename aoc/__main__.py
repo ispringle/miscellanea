@@ -18,6 +18,7 @@ module_dict = {
     "14": "fourteen",
     "15": "fifteen",
     "16": "sixteen",
+    "17": "seventeen",
 }
 
 
