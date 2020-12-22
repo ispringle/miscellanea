@@ -23,6 +23,7 @@ module_dict = {
     "19": "nineteen",
     "20": "twenty",
     "21": "twentyone",
+    "22": "twentytwo",
 }
 
 
