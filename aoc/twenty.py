@@ -3,8 +3,18 @@ class Solver:
         self.input = self.parse(input_file)
 
     def parse(self, input_file):
-        return {int((a := x.split("\n"))[0].strip("Tile ").strip(":")): a[1:]
-                for x in open(input_file).read().split("\n\n")}
+        def sides(piece):
+            t = str.maketrans(".#", "01")
+            top = int(piece[0].translate(t), 2)
+            bottom = int(piece[-1].translate(t), 2)
+            left = int(''.join(x[0] for x in piece).translate(t), 2)
+            right = int(''.join(x[-1] for x in piece).translate(t), 2)
+            return top, bottom, left, right
+
+        return {int((a := x.split("\n"))[0].strip("Tile ").strip(":")):
+                sides(a[1:])
+                for x in open(input_file).read().split("\n\n")
+                if x}
 
     def part_one(self):
         return self.input
