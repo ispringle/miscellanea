@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ ${#2} == 1 ]]
+then
+	day="0$2"
+else
+	day=$2
+fi
+
+if [[ ${#1} != 4 ]]
+then
+	echo "Year must be four digits long"
+else
+	year=$1
+fi
+
+mkdir -p $year/$day
+cp ./template/*.py $year/$day
