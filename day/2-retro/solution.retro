@@ -1,0 +1,18 @@
+:parse-file
+  ASCII:SPACE s:tokenize [ ] a:for-each
+s:to-number swap
+  'forward [ + ] s:case
+  'down    [ swap [ + ] dip ] s:case
+  'up      [ swap [ - ] dip ] s:case
+  drop-pair ;
+#0 #0 'input.txt [ parse-file ] file:for-each-line
+* n:put nl
+:o [ swap [ [ dup ] dip swap ] dip swap ] dip swap ;
+:parse-file
+  ASCII:SPACE s:tokenize [ ] a:for-each s:to-number swap
+  'forward [ [ + ] [ o * + swap ] bi ] s:case
+  'down [ [ rot ] dip + rot rot ] s:case
+  'up [ [ rot ] dip - rot rot ] s:case
+  drop-pair ;
+#0 #0 #0 'input.txt [ parse-file ] file:for-each-line
+* n:put nl
