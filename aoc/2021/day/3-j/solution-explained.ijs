@@ -1,4 +1,4 @@
-i=:"."0>cutopen 1!:1<'test.txt' NB. Input into a 2D array of ints
+i=:"."0>cutopen 1!:1<'input.txt' NB. Input into a 2D array of ints
 C=:(+/>:#-+/) NB. The common fn, takes a list of binaries, returns one binary # w/ most common bits from each
 I=:-. NB. Invert a binary number
 T=:#. NB. Binary to Decimal
