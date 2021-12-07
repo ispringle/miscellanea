@@ -9,6 +9,7 @@
 | 4   |[Python][3] (TBD)| ⭐ ⭐ |
 | 5   |[Python][3] (TBD)| ⭐ ⭐ |
 | 6   |[Crystal][5]     | ⭐ ⭐ |
+| 7   |[R][6]     | ⭐ ⭐ |
 
 ### Day 1
 
@@ -52,8 +53,14 @@ Every day we rotate the 0th fish to the end, since that's how many new fish
 they'll make. Then we add the last element (newly minted fish) to the 6th
 element, original fish with reset timers.
 
+### Day 7
+
+I do not like R. It is deceptive. You think it's Python and then it isn't. Indices start at 1, functions take a wide variety of varying input types. Running a file/script is not easy and the output is dumb. I can't figure out the dataframe notation and I am not sure what a dataframe v. list v. w/e `c()` produces is. Anywho... R's shortcomings did mean the solution was fairly small. Since R is a mathemtical language it operates on vectors and vector-like objects very easily. Throw a function a vector and it just does the thing on every element in the vector. This made today's solution iterator-free, which is cool...
+
+
 [0]: https://racket-lang.org/
 [1]: http://retroforth.org/
 [2]: https://www.jsoftware.com/#/
 [3]: https://www.python.org/
-[4]: https://crystal-lang.org/
+[5]: https://crystal-lang.org/
+[6]: https://www.r-project.org/
