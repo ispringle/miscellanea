@@ -1,0 +1,107 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+#settings {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+#grid {
+  font-size: 10px;
+}
+
+#final {
+  display: flex;
+  flex-direction: row;
+  font-size: 3em;
+  justify-content: space-around;
+}
+
+
+.step:before {
+  content: "Step:";
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.cell {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  font-size: 2em;
+  font-weight: bold;
+  height: auto;
+  justify-content: center;
+  text-align: cente;
+}
+
+.cell:before {
+  content: '';
+  padding-top: 100%;
+}
+
+.cell.n0 {
+  background-color: rgb(calc(255 * 0.0), calc(255 * 0.0), calc(255 * 0.0));
+  color: rgb(calc(255 * 1.0), calc(255 * 1.0), calc(255 * 1.0));
+}
+
+.cell.n1 {
+  background-color: rgb(calc(255 * 0.1), calc(255 * 0.1), calc(255 * 0.1));
+  color: rgb(calc(255 * 0.9), calc(255 * 0.9), calc(255 * 0.9));
+}
+
+.cell.n2 {
+  background-color: rgb(calc(255 * 0.2), calc(255 * 0.2), calc(255 * 0.2));
+  color: rgb(calc(255 * 0.8), calc(255 * 0.8), calc(255 * 0.8));
+}
+
+.cell.n3 {
+  background-color: rgb(calc(255 * 0.3), calc(255 * 0.3), calc(255 * 0.3));
+  color: rgb(calc(255 * 0.7), calc(255 * 0.7), calc(255 * 0.7));
+}
+
+.cell.n4 {
+  background-color: rgb(calc(255 * 0.4), calc(255 * 0.4), calc(255 * 0.4));
+  color: rgb(calc(255 * 0.6), calc(255 * 0.6), calc(255 * 0.6));
+}
+
+.cell.n5 {
+  background-color: rgb(calc(255 * 0.5), calc(255 * 0.5), calc(255 * 0.5));
+  color: rgb(calc(255 * 0.55), calc(255 * 0.55), calc(255 * 0.55));
+}
+
+.cell.n6 {
+  background-color: rgb(calc(255 * 0.6), calc(255 * 0.6), calc(255 * 0.6));
+  color: rgb(calc(255 * 0.4), calc(255 * 0.4), calc(255 * 0.4));
+}
+
+.cell.n7 {
+  background-color: rgb(calc(255 * 0.1), calc(255 * 0.1), calc(255 * 0.1));
+  color: rgb(calc(255 * 0.3), calc(255 * 0.3), calc(255 * 0.3));
+}
+
+.cell.n8 {
+  background-color: rgb(calc(255 * 0.8), calc(255 * 0.8), calc(255 * 0.8));
+  color: rgb(calc(255 * 0.2), calc(255 * 0.2), calc(255 * 0.2));
+}
+
+.cell.n9 {
+  background-color: rgb(calc(255 * 0.9), calc(255 * 0.9), calc(255 * 0.9));
+  color: rgb(calc(255 * 0.1), calc(255 * 0.1), calc(255 * 0.1));
+}
+
+.cell.n10 {
+  background-color: rgb(calc(255 * 1.0), calc(255 * 1.0), calc(255 * 1.0));
+  color: rgb(calc(255 * 1.0), calc(255 * 1.0), calc(255 * 1.0));
+}
