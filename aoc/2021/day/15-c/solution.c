@@ -27,8 +27,10 @@ int main(void) {
 
   // Expand map
   for (y = 0; y < height * TILE_COUNT; y++) {
+    int index_y = y % height;
+    int tile_y = y / height;
     for (x = 0; x < width * TILE_COUNT; x++) {
-      map[y][x] = map[y % height][x % width] + x / width + y / height;
+      map[y][x] = map[index_y][x % width] + x / width + tile_y;
       map[y][x] -= 1;
       map[y][x] %= 9;
       map[y][x] += 1;
