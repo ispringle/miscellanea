@@ -26,27 +26,30 @@ int main(void) {
   int height = y;
 
   // Expand map
-  for (y = 0; y < height * TILE_COUNT; y++)
+  for (y = 0; y < height * TILE_COUNT; y++) {
     for (x = 0; x < width * TILE_COUNT; x++) {
       map[y][x] = map[y % height][x % width] + x / width + y / height;
       map[y][x] -= 1;
       map[y][x] %= 9;
       map[y][x] += 1;
     }
+  }
 
   risks[0][0] = 0;
 
   // Calculate risks
   do {
     continueMaybe = 0;
-    for (y = 0; y < height * TILE_COUNT; y++)
+    for (y = 0; y < height * TILE_COUNT; y++) {
       for (x = 0; x < width * TILE_COUNT; x++) {
         risk = risks[y][x];
         cost = map[y][x];
-        if (x)
+        if (x) {
           risk = MIN(risk, risks[y][x - 1] + cost);
-        if (y)
+        }
+        if (y) {
           risk = MIN(risk, risks[y - 1][x] + cost);
+        }
         if (x < width - 1) {
           risk = MIN(risk, risks[y][x + 1] + cost);
         }
@@ -58,6 +61,7 @@ int main(void) {
           continueMaybe = 1;
         }
       }
+    }
   } while (continueMaybe);
 
   printf("Part One: %d\tPart Two: %d\n", risks[height - 1][width - 1],
