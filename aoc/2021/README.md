@@ -6,11 +6,18 @@
 | 1   |[Racket][0]      | ⭐ ⭐ |
 | 2   |[Retro][1]       | ⭐ ⭐ |
 | 3   |[J][2]           | ⭐ ⭐ |
-| 4   |[Python][3] (TBD)| ⭐ ⭐ |
-| 5   |[Python][3] (TBD)| ⭐ ⭐ |
+| 4   |[Python][7] (TBD)| ⭐ ⭐ |
+| 5   |[Python][7] (TBD)| ⭐ ⭐ |
 | 6   |[Crystal][5]     | ⭐ ⭐ |
 | 7   |[R][6]           | ⭐ ⭐ |
-| 8   |[Python][3]      | ⭐ ⭐ |
+| 8   |[Python][7]      | ⭐ ⭐ |
+| 9   |[Rust][8]        | ⭐ ⭐ |
+| 10  |[Go][9]          | ⭐ ⭐ |
+| 11  |[JavaScript][10] | ⭐ ⭐ |
+| 12  |[Nim][11]        | ⭐ ⭐ |
+| 13  |                 |       |
+| 14  |                 |       |
+| 15  |[C][14]          | ⭐ ⭐ |
 
 ### Day 1
 
@@ -77,6 +84,13 @@ for the rest of this challenge I am going to do two things 1) not worry about
 [0]: https://racket-lang.org/
 [1]: http://retroforth.org/
 [2]: https://www.jsoftware.com/#/
-[3]: https://www.python.org/
 [5]: https://crystal-lang.org/
 [6]: https://www.r-project.org/
+[7]: https://www.python.org/
+[8]: https://www.rust-lang.org/
+[9]: https://go.dev/
+[10]: https://www.javascript.com/
+[11]: https://nim-lang.org/
+[12]: 
+[13]: 
+[14]: http://www.open-std.org/jtc1/sc22/wg14/
