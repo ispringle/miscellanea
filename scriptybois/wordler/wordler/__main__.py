@@ -23,6 +23,18 @@ def update_known_positions(position_string, known_positions={}):
     return known_positions
 
 
+def make_position_string(word, letters):
+    s = []
+    letters = [x for x in letters]
+    for char in word:
+        if char in letters:
+            s.append(char)
+            letters = letters[:(pos := letters.index(char))] + letters[pos+1:]
+        else:
+            s.append("-")
+    return ''.join(s)
+
+
 def rank(possible, unguessed):
     return sorted(possible, key=lambda w: sum(
         1 if x in unguessed else 0 for x in w))
@@ -40,10 +52,11 @@ def repl(possible):
             if not accepted:
                 possible = [x for x in possible if x != guess]
         unguessed = [x for x in unguessed if x not in guess]
-        new_with_position = input("Green letters (ex: '-a--e'): ")
+        new_with_position = input("Green letters: ")
         known_letters = update_known_letters(new_knowns, known_letters, guess)
+        position_string = make_position_string(guess, new_with_position)
         known_positions = update_known_positions(
-            new_with_position, known_positions)
+            position_string, known_positions)
         possible = matches(possible, known_letters, known_positions)
         guess = rank(possible, unguessed)[-1]
         guess_number += 1
