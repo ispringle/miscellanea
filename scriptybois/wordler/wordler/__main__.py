@@ -53,6 +53,8 @@ def repl(possible):
                 possible = [x for x in possible if x != guess]
         unguessed = [x for x in unguessed if x not in guess]
         new_with_position = input("Green letters: ")
+        if all(x in guess for x in new_with_position):
+            return ["Contragulations! 🎉"]
         known_letters = update_known_letters(new_knowns, known_letters, guess)
         position_string = make_position_string(guess, new_with_position)
         known_positions = update_known_positions(
@@ -60,6 +62,7 @@ def repl(possible):
         possible = matches(possible, known_letters, known_positions)
         guess = rank(possible, unguessed)[-1]
         guess_number += 1
+        return
 
 
 def matches(possible, known_letters, known_positions={}):
