@@ -42,7 +42,7 @@ def rank(possible, unguessed):
 
 def repl(possible):
     unguessed = "abcdefghijklmnopqrstuvwxyz"
-    known_letters, known_positions, guess_number, guess = {}, {}, 0, "adieu"
+    known_letters, known_positions, guess_number, guess = {}, {}, 0, "arose"
     while guess_number < 6:
         accepted = False
         while not accepted:
