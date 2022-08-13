@@ -168,4 +168,4 @@ Cargo.lock
 /target
 **/*.rs.bk
 
-.DS_STORE/
+.DS_Store
