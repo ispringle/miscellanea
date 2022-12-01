@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 local args = {...}
 local day = args[1]
 if string.len(day) < 2 then 

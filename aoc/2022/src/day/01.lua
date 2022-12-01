@@ -12,6 +12,7 @@ local function split_by_elf(input)
             table.insert(elf, tonumber(v))
         end
     end
+    -- This is to add the last elf to the table
     table.insert(elves, elf)
     return elves
 end
