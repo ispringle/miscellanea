@@ -1,8 +1,8 @@
 #!/usr/bin/env lua
 
-local args = {...}
+local args = { ... }
 local day = args[1]
-if string.len(day) < 2 then 
+if string.len(day) < 2 then
     day = "0" .. day
 end
 
@@ -12,9 +12,7 @@ local solver = require("src.day." .. day)
 
 local input = file_utils.lines_from_file("input/" .. day .. ".txt")
 local test_input = file_utils.lines_from_file("input/" .. day .. ".test.txt")
-
-solver.init(input, test_input)
-local results = solver.run()
+local results = solver:run(input, test_input)
 
 if results[1] then
     print("Part One: " .. results[1])
