@@ -44,11 +44,31 @@ local function part_two(elves)
 end
 
 
-M.init = function (input)
- M.elves = split_by_elf(input)
+M.init = function (input, test_input)
+ M.test_input = split_by_elf(test_input)
+ M.input = split_by_elf(input)
 end
 
-M.part_one = function () return part_one(M.elves) end
-M.part_two = function () return part_two(M.elves) end
+M.run = function () 
+    local expect_one, expect_two = 24000, 45000
+    local results = {}
+
+    if part_one(M.test_input) == expect_one then
+        results[1] = part_one(M.input)
+    else
+        results[1] = "Test failed!"
+    end
+
+    if part_two(M.test_input) == expect_two then
+        results[2] = part_two(M.input)
+    else
+        results[2] = "Test failed!"
+    end
+
+    return results
+end
+
+M.part_one = function () return part_one(M.input) end
+M.part_two = function () return part_two(M.input) end
 
 return M

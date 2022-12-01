@@ -10,11 +10,20 @@ local file_utils = require('src.utils.file')
 
 local solver = require("src.day." .. day)
 
--- local input = file_utils.lines_from_file("input/" .. day .. ".test.txt")
 local input = file_utils.lines_from_file("input/" .. day .. ".txt")
+local test_input = file_utils.lines_from_file("input/" .. day .. ".test.txt")
 
-solver.init(input)
-local p1 = solver.part_one()
-local p2 = solver.part_two()
-print("Day One: " .. p1)
-print("Day Two: " .. p2)
+solver.init(input, test_input)
+local results = solver.run()
+
+if results[1] then
+    print("Part One: " .. results[1])
+else
+    print("Either the test for part one failed, or the solution return nil.")
+end
+
+if results[2] then
+    print("Part Two: " .. results[2])
+else
+    print("Either the test for part two failed, or the solution return nil.")
+end
