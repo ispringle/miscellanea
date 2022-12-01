@@ -1,55 +1,33 @@
 local M = {}
 
-local table_utils = require('src.utils.table')
-
-local function split_by_elf(input)
-    local elves, elf = {}, {}
+local function sum_by_elf(input)
+    local elves = {0}
     for _, v in pairs(input) do
         if v == "" then
-            table.insert(elves, elf)
-            elf = {}
+            table.insert(elves, 0)
         else
-            table.insert(elf, tonumber(v))
+            elves[#elves] = elves[#elves] + tonumber(v)
         end
     end
     -- This is to add the last elf to the table
-    table.insert(elves, elf)
+    table.sort(elves)
     return elves
 end
 
 local function part_one(elves)
-    local most, curr = 0, 0
-    for _, elf in pairs(elves) do
-        for _, cal in pairs(elf) do
-            curr = cal + curr
-        end
-        if curr > most then
-            most = curr
-        end
-        curr = 0
-    end
-    return most
+    return elves[#elves]
 end
 
 local function part_two(elves)
-    local most, curr = {0,0,0}, 0
-    for _, elf in pairs(elves) do
-        for _, cal in pairs(elf) do
-            curr = cal + curr
-        end
-        local most = table_utils.remove_lowest_maybe(most, curr)
-        curr = 0
-    end
-    return table_utils.table_sum(most)
+    return elves[#elves] + elves[#elves - 1] + elves[#elves - 2]
 end
 
-
-M.init = function (input, test_input)
- M.test_input = split_by_elf(test_input)
- M.input = split_by_elf(input)
+M.init = function(input, test_input)
+    M.test_input = sum_by_elf(test_input)
+    M.input = sum_by_elf(input)
 end
 
-M.run = function () 
+M.run = function()
     local expect_one, expect_two = 24000, 45000
     local results = {}
 
@@ -68,7 +46,7 @@ M.run = function ()
     return results
 end
 
-M.part_one = function () return part_one(M.input) end
-M.part_two = function () return part_two(M.input) end
+M.part_one = function() return part_one(M.input) end
+M.part_two = function() return part_two(M.input) end
 
 return M
