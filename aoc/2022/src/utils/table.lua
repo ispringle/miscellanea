@@ -1,5 +1,8 @@
 local M = {}
 
+-- New/Modified String Methods
+
+-- String Related Helper Functions
 M.print_table = function (t)
     for _, v in pairs(t) do
         print(v)

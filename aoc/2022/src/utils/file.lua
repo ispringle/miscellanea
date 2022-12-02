@@ -1,5 +1,8 @@
 local m = {}
 
+-- New/Modified String Methods
+
+-- String Related Helper Functions
 function m.file_exists(filename)
     local f = io.open(filename, "rb")
     if f then f:close() end
