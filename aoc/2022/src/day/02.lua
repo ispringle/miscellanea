@@ -10,6 +10,15 @@ local function parse(input)
     return p
 end
 
+local function calculate_score(scores, input)
+    local score = 0
+    for _, v in pairs(input) do
+        local o, p = v[1], v[2]
+        score = score + scores[o][p]
+    end
+    return score
+end
+
 local function part_one(input)
     local scores = {
         A = {
@@ -28,12 +37,7 @@ local function part_one(input)
             Z = 6,
         },
     }
-    local score = 0
-    for _, v in pairs(input) do
-        local o, p = v[1], v[2]
-        score = score + scores[o][p]
-    end
-    return score
+    return calculate_score(scores, input)
 end
 
 local function part_two(input)
@@ -54,12 +58,7 @@ local function part_two(input)
             Z = 7,
         },
     }
-    local score = 0
-    for _, v in pairs(input) do
-        local o, p = v[1], v[2]
-        score = score + scores[o][p]
-    end
-    return score
+    return calculate_score(scores, input)
 end
 
 local test_one, test_two = 15, 12
