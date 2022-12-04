@@ -1,6 +1,13 @@
 local M = {}
 
 -- New/Modified String Methods
+table.smoosh = function(a,b)
+    local new = a
+    for _, v in pairs(b) do
+        table.insert(new, v)
+    end
+    return new
+end
 
 -- String Related Helper Functions
 M.print_table = function (t)
