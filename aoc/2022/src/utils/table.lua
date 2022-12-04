@@ -1,10 +1,18 @@
 local M = {}
 
 -- New/Modified String Methods
-table.smoosh = function(a,b)
+function table.smoosh(a,b)
     local new = a
     for _, v in pairs(b) do
         table.insert(new, v)
+    end
+    return new
+end
+
+function table.map(t, f)
+    local new = t
+    for i, v in ipairs(new) do
+        new[i] = f(v)
     end
     return new
 end
