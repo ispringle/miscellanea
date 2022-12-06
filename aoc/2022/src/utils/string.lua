@@ -27,4 +27,17 @@ end
 
 -- String Related Helper Functions
 
+M.counter = function (x)
+    local count = {}
+    for i = 1, #x do
+        local y = x:sub(i, i)
+        if count[y] then
+            count[y] = count[y] + 1
+        else
+        count[y] = 1
+        end
+    end
+    return count
+end
+
 return M

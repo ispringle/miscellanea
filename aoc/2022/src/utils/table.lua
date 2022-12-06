@@ -10,6 +10,14 @@ function table.copy(t)
     return setmetatable(new, getmetatable(t))
 end
 
+function table.len(t)
+    local tally = 0
+    for _, _ in pairs(t) do
+        tally = tally + 1
+    end
+    return tally
+end
+
 function table.map(t, f)
     local new = t
     for i, v in ipairs(new) do
@@ -35,6 +43,7 @@ function table.smoosh(a,b)
 end
 
 -- String Related Helper Functions
+
 M.print_table = function (t)
     for _, v in pairs(t) do
         print(v)
