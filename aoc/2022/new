@@ -1,0 +1,6 @@
+#!/bin/bash
+
+day=$(printf "%02d" $1)
+cp ./src/day/template.lua ./src/day/$day.lua
+touch ./input/$day.test.txt
+touch ./input/$day.txt
