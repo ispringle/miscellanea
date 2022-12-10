@@ -3,16 +3,6 @@ local Day = require("src.day.Day")
 require('src.utils.string')
 local table_utils = require('src.utils.table')
 
-local function show_tree(tree)
-    for k, v in pairs(tree) do
-        if type(v) == "table" then
-            print(k .. ":")
-            show_tree(v)
-        else print(" - " .. k .. ": " .. v)
-        end
-    end
-end
-
 local function parse(input)
     local dirs, stack = {}, {}
     for _, v in pairs(input) do
