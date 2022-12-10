@@ -45,10 +45,13 @@ end
 -- String Related Helper Functions
 
 M.print_table = function (t)
-    for _, v in pairs(t) do
-        print(v)
+    for k, v in pairs(tree) do
+        if type(v) == "table" then
+            print(k .. ":")
+            show_tree(v)
+        else print(" - " .. k .. ": " .. v)
+        end
     end
-    print("")
 end
 
 M.remove_lowest_maybe = function (most, value)
