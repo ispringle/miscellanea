@@ -42,6 +42,13 @@ function table.smoosh(a,b)
     return new
 end
 
+function table.sum(t)
+    local acc = 0
+    for _, v in pairs(t) do
+        acc = acc + v
+    end
+    return acc
+end
 -- String Related Helper Functions
 
 M.print_table = function (t)
