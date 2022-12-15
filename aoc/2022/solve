@@ -12,7 +12,8 @@ local solver = require("src.day." .. day)
 
 local input = file_utils.lines_from_file("input/" .. day .. ".txt")
 local test_input = file_utils.lines_from_file("input/" .. day .. ".test.txt")
-local results = solver:run(input, test_input)
+local test_input2 = file_utils.lines_from_file("input/" .. day .. ".test.p2.txt")
+local results = solver:run(input, test_input, test_input2)
 
 if results[1] then
     print("Part One: " .. results[1])

@@ -18,7 +18,7 @@ function Day:new(func_one, expect_one, parser, func_two, expect_two, parse_two, 
     return day
 end
 
-function Day:run(input, test_input)
+function Day:run(input, test_input, test_input2)
     self.test_input = self.parse(test_input)
     self.input = self.parse(input)
     local results = {}
@@ -27,6 +27,10 @@ function Day:run(input, test_input)
         results[1] = self.solver_one(self.input)
     else
         results[1] = "Test failed!"
+    end
+
+    if test_input2 ~= nil then
+        self.test_input = self.parse(test_input2)
     end
 
     if self.solver_two(self.test_input) == self.expect_two then

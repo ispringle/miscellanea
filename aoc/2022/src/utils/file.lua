@@ -10,7 +10,7 @@ function m.file_exists(filename)
 end
 
 function m.lines_from_file(filename)
-    if not m.file_exists(filename) then return {} end
+    if not m.file_exists(filename) then return nil end
     local lines = {}
     for line in io.lines(filename) do
         lines[#lines+1] = line
