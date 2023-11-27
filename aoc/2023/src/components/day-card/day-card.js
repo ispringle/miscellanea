@@ -4,7 +4,7 @@ import { defaultStyles } from '../../style';
 export class DayCard extends LitElement {
   static get properties() {
     return {
-      day: { type: Function },
+      day: { type: String },
       solution: { type: Function || null },
       partOneSolution: { type: String },
       partTwoSolution: { type: String },
@@ -55,7 +55,7 @@ export class DayCard extends LitElement {
 
   visualize(event) {
     event.preventDefault();
-    this.solution.visualize;
+    this.solution.visualize();
   }
 
   render() {
@@ -88,12 +88,15 @@ export class DayCard extends LitElement {
             type="text"
             value=${this.partTwoSolution}
           />
-          <input
-            ?disabled=${this.solution.visualize ? false : true}
-            type="submit"
-            value="Visualize"
-            @click=${this.visualize}
-          />
+          ${this.solution.visualize
+            ? html`
+                <input
+                  type="submit"
+                  value="Visualize"
+                  @click=${this.visualize}
+                />
+              `
+            : ''}
         </fieldset>
       </section>
     `;

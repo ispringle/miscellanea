@@ -8,6 +8,6 @@ const partTwo = (input) => {
   return 'two';
 };
 
-export default function dayOneSolver(input) {
+export function solver(input) {
   return [partOne(input), partTwo(input)];
 }

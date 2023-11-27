@@ -21,6 +21,7 @@ export class SelectGrid extends LitElement {
           display: grid;
           grid-template-columns: repeat(auto-fit, 50rem);
           grid-auto-flow: dense;
+          grid-auto-rows: 1fr;
           gap: 10px;
         }
         .open-close-icon {

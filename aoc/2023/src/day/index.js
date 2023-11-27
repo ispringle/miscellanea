@@ -1,4 +1,4 @@
-import dayOneSolver from './one.js';
+import { solver as dayOneSolver } from './one.js';
 
 const Solutions = {
   one: {
