@@ -1,4 +1,4 @@
-import { css } from 'lit'
+import { css } from 'lit';
 
 export const defaultStyles = css`
   /*! concrete.css v2.0.3 | MIT License | github.com/louismerlin/concrete.css */
@@ -436,4 +436,4 @@ export const defaultStyles = css`
     -moz-font-feature-settings: 'liga';
     -moz-osx-font-smoothing: grayscale;
   }
-`
+`;

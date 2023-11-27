@@ -1,17 +1,17 @@
-import { LitElement, css, html } from 'lit'
-import { defaultStyles } from '../../style'
+import { LitElement, css, html } from 'lit';
+import { defaultStyles } from '../../style';
 
 export class DayCard extends LitElement {
-  static get properties () {
+  static get properties() {
     return {
       day: { type: Function },
-      solver: { type: Function },
+      solution: { type: Function || null },
       partOneSolution: { type: String },
       partTwoSolution: { type: String },
-    }
+    };
   }
 
-  static get styles () {
+  static get styles() {
     return [
       defaultStyles,
       css`
@@ -29,31 +29,36 @@ export class DayCard extends LitElement {
         textarea {
           width: 90%;
         }
-      `
-    ]
+      `,
+    ];
   }
 
-  constructor () {
-    super()
-    this.day = ''
-    this.input = ''
-    this.partOneSolution = ''
-    this.partTwoSolution = ''
-    this.solver = () => []
+  constructor() {
+    super();
+    this.day = '';
+    this.input = '';
+    this.partOneSolution = '';
+    this.partTwoSolution = '';
+    this.solution = null;
   }
 
-  onChange (event) {
-    this.input = event.target.value
+  onChange(event) {
+    this.input = event.target.value;
   }
 
-  solve (event) {
-    event.preventDefault()
-    const [one, two] = this.solver(this.input)
-    this.partOneSolution = one
-    this.partTwoSolution = two
+  solve(event) {
+    event.preventDefault();
+    const [one, two] = this.solution.solve(this.input);
+    this.partOneSolution = one;
+    this.partTwoSolution = two;
   }
 
-  render () {
+  visualize(event) {
+    event.preventDefault();
+    this.solution.visualize;
+  }
+
+  render() {
     return html`
       <section>
         <h3>Day ${this.day} Solution</h3>
@@ -83,10 +88,16 @@ export class DayCard extends LitElement {
             type="text"
             value=${this.partTwoSolution}
           />
+          <input
+            ?disabled=${this.solution.visualize ? false : true}
+            type="submit"
+            value="Visualize"
+            @click=${this.visualize}
+          />
         </fieldset>
       </section>
-    `
+    `;
   }
 }
 
-window.customElements.define('day-card', DayCard)
+window.customElements.define('day-card', DayCard);

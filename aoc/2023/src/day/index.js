@@ -1,3 +1,9 @@
 import dayOneSolver from './one.js';
 
-export { dayOneSolver}
+const Solutions = {
+  one: {
+    solve: dayOneSolver,
+  },
+};
+
+export default Solutions;

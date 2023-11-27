@@ -1,74 +1,93 @@
-import { LitElement, css, html } from 'lit'
-import { repeat } from 'lit/directives/repeat.js'
+import { LitElement, css, html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 
-import { defaultStyles } from '../../style'
+import { defaultStyles } from '../../style';
 
 export class SelectGrid extends LitElement {
-  static get properties () {
+  static get properties() {
     return {
-      expandedCard: { type: String }
-    }
+      expandedCard: { type: String },
+      cards: { type: Array },
+    };
   }
 
-  static get styles () {
+  static get styles() {
     return [
       defaultStyles,
       css`
         :host {
           width: 100%;
           margin: 5px;
-        }
-        .grid {
           display: grid;
-          grid-template-columns: repeat(2, auto);
+          grid-template-columns: repeat(auto-fit, 50rem);
+          grid-auto-flow: dense;
           gap: 10px;
         }
         .open-close-icon {
           float: right;
           margin: 5px;
         }
-      `
-    ]
+        .focused {
+          grid-column: 1 / -1;
+        }
+        .hidden {
+          display: none;
+        }
+      `,
+    ];
   }
-  constructor () {
-    super()
-    this.day = 'One'
-    this.input = ''
-    this.expandedCard
+  constructor() {
+    super();
+    this.day = 'One';
+    this.input = '';
+    this.expandedCard = '';
+    this.cards = [];
   }
 
-  onClick(event) {
-    // this.expandedCard = event.target.dataset.card
+  connectedCallback() {
+    super.connectedCallback();
+    const cards = [];
+    Array.from(this.children).forEach((child) => {
+      child.slot = child.day;
+      cards.push(child.day);
+    });
+    this.cards = cards;
   }
 
-  renderCard (el) {
-    const id = `grid-card-${el.day}`
-    const expandIcon = 'fullscreen'
-    const closeIcon = 'close_fullscreen'
-    const focused = this.expandedCard === id
-    const icon = focused ? closeIcon : expandIcon
-    const focusClass = focused ? "hidden" : ""
+  firstUpdated() {
+    const mo = new MutationObserver(() => this.requestUpdate());
+    mo.observe(this, { childList: true });
+  }
+
+  onClick(id) {
+    this.expandedCard = this.expandedCard === id ? '' : id;
+  }
+
+  renderCard(id) {
+    const focused = this.expandedCard === id;
+    const icon = focused ? 'close_fullscreen' : 'fullscreen';
+    const className = focused
+      ? 'focused'
+      : this.expandedCard === ''
+        ? ''
+        : 'hidden';
     return html`
-      <div .class=${`card ${focusClass}`} id=${id}>
+      <div class=${className}>
         <span
-          @click=${this.onClick}
+          @click=${() => this.onClick(id)}
           class="material-symbols-outlined open-close-icon"
-          data-card=${id}
           >${icon}</span
         >
-        ${el}
+        <slot name=${id}></slot>
       </div>
-    `
+    `;
   }
 
-  render () {
-    console.log(this.children)
+  render() {
     return html`
-      <div class="grid">
-        ${repeat(this.children, child => child.day, this.renderCard.bind(this))}
-      </div>
-    `
+      ${repeat(this.cards, (card) => card, this.renderCard.bind(this))}
+    `;
   }
 }
 
-window.customElements.define('select-grid', SelectGrid)
+window.customElements.define('select-grid', SelectGrid);

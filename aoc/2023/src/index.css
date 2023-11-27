@@ -15,9 +15,11 @@ html {
  * 2. Set the underline size for all elements.
  */
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: inherit; /* 1 */
-  text-decoration-thickness: .2rem; /* 2 */
+  text-decoration-thickness: 0.2rem; /* 2 */
 }
 
 /**
@@ -97,18 +99,18 @@ section {
  */
 
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   display: inline-block; /* 1 */
   vertical-align: middle; /* 1 */
-  padding: .4rem 1rem; /* 1 */
+  padding: 0.4rem 1rem; /* 1 */
   font-size: 2rem; /* 1 */
   font-weight: normal; /* 1 */
   margin-bottom: 1rem; /* 1 */
   background: #fff; /* 2 */
   color: #111; /* 2 */
-  border: .2rem solid #111; /* 2 */
+  border: 0.2rem solid #111; /* 2 */
   border-radius: 0; /* 2 */
   cursor: pointer; /* 3 */
 }
@@ -119,9 +121,9 @@ input[type="submit"] {
  */
 
 button:disabled,
-input[type="button"]:disabled,
-input[type="reset"]:disabled,
-input[type="submit"]:disabled{
+input[type='button']:disabled,
+input[type='reset']:disabled,
+input[type='submit']:disabled {
   color: #fff; /* 1 */
   background: #111; /* 1 */
   cursor: not-allowed; /* 2 */
@@ -140,7 +142,7 @@ ul {
  */
 
 fieldset {
-  border: .2rem solid #111;
+  border: 0.2rem solid #111;
 }
 
 /**
@@ -148,10 +150,11 @@ fieldset {
  * 2. Add a margin underneath.
  */
 
-label, legend {
+label,
+legend {
   display: block; /* 1 */
   font-weight: bold; /* 1 */
-  margin-bottom: .8rem; /* 2 */
+  margin-bottom: 0.8rem; /* 2 */
 }
 
 /** 
@@ -159,13 +162,13 @@ label, legend {
  * 2. Set the color and border of the text input.
  */
 
-input[type="email"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="url"],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
 textarea,
 select {
   -webkit-appearance: none; /* 1 */
@@ -173,12 +176,12 @@ select {
   appearance: none; /* 1 */
   box-shadow: none; /* 1 */
   box-sizing: inherit; /* 1 */
-  padding: .4rem 1rem; /* 1 */
+  padding: 0.4rem 1rem; /* 1 */
   width: 100%; /* 1 */
   font-size: 2rem; /* 1 */
   color: #111; /* 2 */
   background-color: #fff; /* 2 */
-  border: .2rem solid #111; /* 2 */
+  border: 0.2rem solid #111; /* 2 */
   border-radius: 0; /* 2 */
 }
 
@@ -186,7 +189,10 @@ select {
  * Set margin for form elements.
  */
 
-fieldset, input, select, textarea {
+fieldset,
+input,
+select,
+textarea {
   margin: 0 0 1.6rem 0;
 }
 
@@ -215,15 +221,17 @@ table {
  * Add padding around table cells.
  */
 
-td, th {
-  padding: .8rem;
+td,
+th {
+  padding: 0.8rem;
 }
 
 /**
  * Remove left padding for first cell in a row.
  */
 
-td:first-child, th:first-child {
+td:first-child,
+th:first-child {
   padding-left: 0;
 }
 
@@ -231,7 +239,8 @@ td:first-child, th:first-child {
  * Remove right padding for last cell in a row.
  */
 
-td:last-child, th:last-child {
+td:last-child,
+th:last-child {
   padding-right: 0;
 }
 
@@ -241,7 +250,7 @@ td:last-child, th:last-child {
  */
 
 th {
-  border-bottom: .2rem solid #111; /* 1 */
+  border-bottom: 0.2rem solid #111; /* 1 */
   text-align: left; /* 2 */
 }
 
@@ -250,7 +259,7 @@ th {
  */
 
 td {
-  border-bottom: .1rem solid #111;
+  border-bottom: 0.1rem solid #111;
 }
 
 /**
@@ -259,11 +268,12 @@ td {
  * 3. Set the y overflow to hidden to hide the navigation bar.
  */
 
-blockquote, pre {
+blockquote,
+pre {
   margin-left: 0; /* 1 */
   margin-right: 0; /* 1 */
   padding: 1rem 1.6rem; /* 1 */
-  border-left: .2rem solid #111; /* 2 */
+  border-left: 0.2rem solid #111; /* 2 */
   overflow-y: hidden; /* 3 */
 }
 
@@ -303,7 +313,7 @@ progress {
   width: 100%; /* 1 */
   background: #fff; /* 2 */
   color: #111; /* 2 */
-  border: .2rem solid #111; /* 2 */
+  border: 0.2rem solid #111; /* 2 */
   border-radius: 0; /* 2 */
 }
 
@@ -336,7 +346,7 @@ progress::-moz-progress-bar {
  */
 
 hr {
-  border: .1rem solid #111;
+  border: 0.1rem solid #111;
 }
 
 /**
@@ -354,16 +364,16 @@ hr {
     color: #fff;
   }
   button,
-  input[type="button"],
-  input[type="reset"],
-  input[type="submit"],
-  input[type="email"],
-  input[type="number"],
-  input[type="password"],
-  input[type="search"],
-  input[type="tel"],
-  input[type="text"],
-  input[type="url"],
+  input[type='button'],
+  input[type='reset'],
+  input[type='submit'],
+  input[type='email'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='url'],
   textarea,
   select,
   progress {
@@ -372,9 +382,9 @@ hr {
     border-color: #fff;
   }
   button:disabled,
-  input[type="button"]:disabled,
-  input[type="reset"]:disabled,
-  input[type="submit"]:disabled{
+  input[type='button']:disabled,
+  input[type='reset']:disabled,
+  input[type='submit']:disabled {
     color: #111;
     background: #fff;
   }
@@ -404,7 +414,8 @@ hr {
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v151/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOelbd5zrDAt.woff) format('woff');
+  src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v151/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOelbd5zrDAt.woff)
+    format('woff');
 }
 
 .material-symbols-outlined {
