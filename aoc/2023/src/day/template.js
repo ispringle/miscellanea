@@ -1,3 +1,7 @@
+const testInputOne =``
+const testInputTwo = ``
+export const testInputs = { testInputOne, testInputTwo }
+
 const partOne = (input) => {
   input.split();
   return 'one';
@@ -8,6 +12,14 @@ const partTwo = (input) => {
   return 'two';
 };
 
-export function solver(input) {
-  return [partOne(input), partTwo(input)];
+/**
+ * @param {string} inputOne 
+ * @param {string} inputTwo 
+ * @returns [any, any]
+ */
+export function solver(inputOne, inputTwo) {
+  return [
+    partOne(inputOne),
+    partTwo(inputTwo)
+  ];
 }

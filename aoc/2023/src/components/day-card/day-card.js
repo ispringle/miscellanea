@@ -5,7 +5,7 @@ export class DayCard extends LitElement {
   static get properties() {
     return {
       day: { type: String },
-      solution: { type: Function || null },
+      solution: { attribute: false },
       partOneSolution: { type: String },
       partTwoSolution: { type: String },
     };
@@ -43,12 +43,20 @@ export class DayCard extends LitElement {
   }
 
   onChange(event) {
-    this.input = event.target.value;
+    this.input = event.target.value.trim();
   }
 
   solve(event) {
     event.preventDefault();
-    const [one, two] = this.solution.solve(this.input);
+    const [one, two] = this.solution.solve(this.input, this.input);
+    this.partOneSolution = one;
+    this.partTwoSolution = two;
+  }
+
+  test(event) {
+    event.preventDefault();
+    const {testInputOne, testInputTwo } = this.solution.testInputs;
+    const [one, two] = this.solution.solve(testInputOne, testInputTwo);
     this.partOneSolution = one;
     this.partTwoSolution = two;
   }
@@ -59,6 +67,8 @@ export class DayCard extends LitElement {
   }
 
   render() {
+    // this.input = this.solution.testInputs.testInputOne;
+
     return html`
       <section>
         <h3>Day ${this.day} Solution</h3>
@@ -67,9 +77,11 @@ export class DayCard extends LitElement {
             <legend>Input</legend>
             <textarea
               placeholder="Paste your input here..."
+              .value=${this.input}
               @change=${this.onChange}
             ></textarea>
             <input type="submit" value="Solve" @click=${this.solve} />
+            <input type="submit" value="Test" @click=${this.test} />
           </fieldset>
         </form>
         <fieldset>
