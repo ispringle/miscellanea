@@ -55,7 +55,7 @@ export class DayCard extends LitElement {
 
   test(event) {
     event.preventDefault();
-    const {testInputOne, testInputTwo } = this.solution.testInputs;
+    const { testInputOne, testInputTwo } = this.solution.testInputs;
     const [one, two] = this.solution.solve(testInputOne, testInputTwo);
     this.partOneSolution = one;
     this.partTwoSolution = two;
