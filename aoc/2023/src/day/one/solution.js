@@ -29,23 +29,6 @@ const RE_TWO = new RegExp(
   'g',
 );
 
-const testInputOne = `1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet`;
-
-const testInputTwo = `two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen`;
-
-export const testInputs = {
-  testInputOne,
-  testInputTwo,
-};
 /**
  * @param {number[]} input
  * @returns number
@@ -74,6 +57,6 @@ const parse = (input, re) => {
  * @param {string} inputTwo
  * @returns [any, any]
  */
-export function solver(inputOne, inputTwo) {
+export default function solver(inputOne, inputTwo) {
   return [sumArr(parse(inputOne, RE_ONE)), sumArr(parse(inputTwo, RE_TWO))];
 }

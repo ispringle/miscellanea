@@ -67,7 +67,9 @@ export class DayCard extends LitElement {
   }
 
   render() {
-    // this.input = this.solution.testInputs.testInputOne;
+    if (this.solution?.puzzleInput) {
+      this.input = this.solution.puzzleInput;
+    }
 
     return html`
       <section>

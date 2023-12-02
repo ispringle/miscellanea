@@ -1,10 +1,13 @@
 import {
+  puzzleInput as dayOnePuzzleInput,
   solver as dayOneSolver,
   testInputs as dayOneTestInputs,
-} from './one.js';
+} from './one';
 
-const Solutions = {
+export default {
   one: {
+    puzzleInput: dayOnePuzzleInput,
+    solve: dayOneSolver,
     testInputs: dayOneTestInputs,
     solve: dayOneSolver,
   },
