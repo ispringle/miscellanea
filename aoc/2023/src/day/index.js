@@ -4,13 +4,21 @@ import {
   testInputs as dayOneTestInputs,
 } from './one';
 
+import {
+  solver as dayTwoSolver,
+  testInputs as dayTwoTestInputs,
+  puzzleInput as dayTwoPuzzleInput,
+} from './two';
+
 export default {
   one: {
     puzzleInput: dayOnePuzzleInput,
     solve: dayOneSolver,
     testInputs: dayOneTestInputs,
-    solve: dayOneSolver,
+  },
+  two: {
+    testInputs: dayTwoTestInputs,
+    puzzleInput: dayTwoPuzzleInput,
+    solve: dayTwoSolver,
   },
 };
-
-export default Solutions;
