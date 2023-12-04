@@ -1,67 +1,34 @@
-const partOne = (input) =>
-  Object.values(input)
-    .map(
-      ([{ winners, numbers }]) =>
-        numbers
-          .filter((n) => winners.includes(n))
-          .reduce((acc, _n) => (acc === 0 ? 1 : acc * 2), 0), // eslint-disable-line no-unused-vars
-    )
-    .reduce((acc, x) => acc + x, 0);
+import { range, sum } from '../utils';
 
-const partTwo = (input) => {
-  Object.entries(input).forEach(([cardNumber, cards]) =>
-    cards.forEach(({ winners, numbers }) => {
-      let inc = Number(cardNumber);
-      numbers
-        .filter((n) => winners.includes(n))
-        .forEach(() => {
-          inc++;
-          const copy = input[inc][0];
-          input[inc].push(copy);
-        });
-    }),
-  );
-  return Object.values(input).reduce((acc, cards) => cards.length + acc, 0);
+const solve = (matches) => {
+  let cards = Array(matches.length).fill(1);
+  for (let card = 0; card < matches.length; card++) {
+    range(matches[card]).forEach((copy) => {
+      cards[card + copy + 1] = cards[card + copy + 1] + cards[card];
+    });
+  }
+  return [
+    sum(matches.filter((n) => n !== 0).map((n) => 2 ** (n - 1))),
+    sum(cards),
+  ];
 };
 
 const parse = (input) =>
   input
     .trim()
     .split('\n')
-    .reduce(
-      (acc, card, i) => ({
-        ...acc,
-        ...{
-          [i + 1]: [
-            {
-              winners: card
-                .split(':')[1]
-                .trim()
-                .split('|')[0]
-                .trim()
-                .split(' ')
-                .filter((x) => x !== '')
-                .map((x) => Number(x)),
-              numbers: card
-                .split(':')[1]
-                .trim()
-                .split('|')[1]
-                .trim()
-                .split(' ')
-                .filter((x) => x !== '')
-                .map((x) => Number(x)),
-            },
-          ],
-        },
-      }),
-      {},
-    );
+    .map((line) => {
+      const [, w, c] = line.split(/[:|]/);
+      return c
+        .trim()
+        .split(/\s+/)
+        .filter((n) => w.trim().split(/\s+/).includes(n)).length;
+    });
 
 /**
  * @param {string} inputOne
  * @returns [any, any]
  */
 export default function solver(input) {
-  const parsed = parse(input);
-  return [partOne(parsed), partTwo(parsed)];
+  return solve(parse(input));
 }

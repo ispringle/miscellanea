@@ -7,3 +7,4 @@ export const range = (length, start = 0) =>
     : [...Array(length).keys()].map((i) => i + start);
 
 export const rangeFrom = (start, end) => range(end - start, start);
+ export const sum = array => array.reduce((acc, n) => n + acc)
