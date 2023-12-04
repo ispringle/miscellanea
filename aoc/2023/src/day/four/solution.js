@@ -1,5 +1,9 @@
 import { range, sum } from '../utils';
 
+/**
+ * @param {number[]} matches 
+ * @returns [number, number]
+ */
 const solve = (matches) => {
   let cards = Array(matches.length).fill(1);
   for (let card = 0; card < matches.length; card++) {
@@ -13,6 +17,10 @@ const solve = (matches) => {
   ];
 };
 
+/**
+ * @param {string} input 
+ * @returns number[]
+ */
 const parse = (input) =>
   input
     .trim()
@@ -26,8 +34,8 @@ const parse = (input) =>
     });
 
 /**
- * @param {string} inputOne
- * @returns [any, any]
+ * @param {string} input
+ * @returns [number, number]
  */
 export default function solver(input) {
   return solve(parse(input));
