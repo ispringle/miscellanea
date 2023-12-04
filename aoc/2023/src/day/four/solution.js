@@ -1,10 +1,11 @@
 import { range, sum } from '../utils';
 
 /**
- * @param {number[]} matches 
+ * @param {number[]} matches
  * @returns [number, number]
  */
 const solve = (matches) => {
+  /** @type {number[]} */
   let cards = Array(matches.length).fill(1);
   for (let card = 0; card < matches.length; card++) {
     range(matches[card]).forEach((copy) => {
@@ -18,7 +19,7 @@ const solve = (matches) => {
 };
 
 /**
- * @param {string} input 
+ * @param {string} input
  * @returns number[]
  */
 const parse = (input) =>
