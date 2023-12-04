@@ -10,6 +10,12 @@ import {
   puzzleInput as dayTwoPuzzleInput,
 } from './two';
 
+import {
+  solver as dayThreeSolver,
+  testInputs as dayThreeTestInputs,
+  puzzleInput as dayThreePuzzleInput,
+} from './three';
+
 export default {
   one: {
     puzzleInput: dayOnePuzzleInput,
@@ -20,5 +26,10 @@ export default {
     testInputs: dayTwoTestInputs,
     puzzleInput: dayTwoPuzzleInput,
     solve: dayTwoSolver,
+  },
+  three: {
+    testInputs: dayThreeTestInputs,
+    puzzleInput: dayThreePuzzleInput,
+    solve: dayThreeSolver,
   },
 };
