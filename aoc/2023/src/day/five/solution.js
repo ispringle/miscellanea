@@ -1,48 +1,21 @@
-import { chunk, range } from '../utils';
+import { chunk, range } from '../utils/index.js';
 
-class MapperOne {
-  /**
-   * @param {string} from
-   * @param {string} to
-   */
-  constructor(from, to) {
-    this.from = from;
-    this.to = to;
-    /** @type [number, number, number][] */
-    this.mapped = [];
-  }
-
-  /**
-   *
-   * @param {number} d destination
-   * @param {number} s source
-   * @param {number} o offset
-   */
-  add(d, s, o) {
-    this.mapped.push([s, s + o, d]);
-  }
-
-  /**
-   *
-   * @param {number} start the starting place for previous value
-   */
-  destination(start) {
-    return this.mapped.reduce((found, [source, max, dest]) => {
-      return source <= start && start < max ? dest + (start - source) : found;
-    }, start);
-  }
-}
-
-class MapperTwo extends MapperOne {
-  constructor() {
-    super();
-  }
-}
+/**
+ *
+ * @param {number} start the starting place for previous value
+ * @param {[number, number, number][]} map array of maps
+ * @returns number
+ */
+const destination = (start, map) => {
+  return map.reduce((found, [source, max, dest]) => {
+    return source <= start && start < max ? dest + (start - source) : found;
+  }, start);
+};
 
 const partOne = ([seeds, seedMaps]) =>
   Math.min(
     ...seeds.map((seed) =>
-      seedMaps.reduce((next, map) => map.destination(next), seed),
+      seedMaps.reduce((next, map) => destination(next, map), seed),
     ),
   );
 
@@ -51,22 +24,25 @@ const partTwo = ([seeds, seedMaps]) =>
     ...chunk(seeds, 2).map(([start, length]) =>
       Math.min(
         ...range(length, start).map((seed) =>
-          seedMaps.reduce((next, map) => map.destination(next), seed),
+          seedMaps.reduce((next, map) => destination(next, map), seed),
         ),
       ),
     ),
   );
 
-const parse = (input, Mapper) => {
+const parse = (input) => {
   const [s, ...pages] = input.split('\n\n');
   const seeds = s.split(':')[1].trim().split(' ').map(Number);
   const maps = [];
-  let curr = null;
   pages.forEach((page) => {
+    // eslint-disable-next-line no-unused-vars
     const [mapHeader, ...rules] = page.split('\n');
-    curr = new Mapper(...mapHeader.split('map:')[0].split('-to-'));
-    rules.forEach((rule) => curr.add(...rule.split(' ').map(Number)));
-    maps.push(curr);
+    maps.push(
+      rules.map((rule) => {
+        const [dest, source, offset] = rule.split(' ').map(Number);
+        return [source, source + offset, dest];
+      }),
+    );
   });
   return [seeds, maps];
 };
@@ -76,5 +52,5 @@ const parse = (input, Mapper) => {
  * @returns [any, any]
  */
 export default function solver(input) {
-  return [partOne(parse(input, MapperOne)), partTwo(parse(input, MapperTwo))];
+  return [partOne(parse(input)), partTwo(parse(input))];
 }
