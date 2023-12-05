@@ -28,3 +28,17 @@ export const rangeFrom = (start, end) => range(end - start, start);
  * @returns number
  */
  export const sum = array => array.reduce((acc, n) => n + acc)
+
+/**
+ * @template {T}
+ * 
+ * @param {T[]} array 
+ * @returns [T][]
+ */
+ export const chunk = (array, size = 1) => {
+  let chunked = [];
+  for (let i = 0; i < array.length; i = i + size) {
+    chunked.push(array.slice(i, i + size));
+  }
+  return chunked;
+ }
