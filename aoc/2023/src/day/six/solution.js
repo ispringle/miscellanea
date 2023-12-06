@@ -1,11 +1,14 @@
-import { chunk, interleave, product, range } from '../utils';
+import { chunk, interleave, product } from '../utils';
+
+const f = (t, r) => Math.sqrt(t ** 2 - 4 * r)
+
 const solve = (input) =>
   product(
     ...input.map(
       ([time, record]) =>
-        range(time + 1)
-          .map((ms) => (time - ms) * ms)
-          .filter((x) => x > record).length,
+        Math.ceil((time + f(time, record)) / 2) -
+        Math.floor((time - f(time, record)) / 2) -
+        1,
     ),
   );
 
@@ -15,23 +18,23 @@ const parseOne = (input) =>
       ...input.split('\n').map((line) =>
         line
           .split(':')[1]
-          .trim()
           .split(' ')
-          .filter((x) => x !== '')
-          .map((x) => Number(x.trim())),
+          .flatMap((x) => (x === '' ? [] : [Number(x.trim())])),
       ),
     ),
     2,
   );
 
 const parseTwo = (input) =>
-  input.split('\n').map((line) =>
-    line
-      .split(':')[1]
-      .trim()
-      .split(' ')
-      .reduce((acc, s) => acc + s, '')
-  ).map(Number);
+  input
+    .split('\n')
+    .map((line) =>
+      line
+        .split(':')[1]
+        .split(' ')
+        .reduce((acc, s) => acc + s, ''),
+    )
+    .map(Number);
 
 /**
  * @param {string} inputOne
