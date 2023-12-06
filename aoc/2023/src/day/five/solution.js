@@ -1,4 +1,4 @@
-import { chunk, range } from '../utils/index.js';
+import { chunk } from '../utils/index.js';
 
 /**
  *
