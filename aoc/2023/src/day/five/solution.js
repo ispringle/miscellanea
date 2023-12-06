@@ -7,10 +7,8 @@ import { chunk } from '../utils/index.js';
  * @returns number
  */
 const destination = (start, map) => {
-  return map.reduce((found, [dest, source, offset]) => {
-    return source <= start && start < source + offset
-      ? dest + (start - source)
-      : found;
+  return map.reduce((found, [source, max, dest]) => {
+    return source <= start && start < max ? dest + (start - source) : found;
   }, start);
 };
 
@@ -21,44 +19,42 @@ const partOne = ([seeds, seedMaps]) =>
     ),
   );
 
-const partTwo = ([seeds, seedMaps]) => {
-  const locations = [];
-  chunk(seeds, 2).forEach(([begin, len]) => {
-    let ranges = Array([begin, begin + len]);
-    let res = [];
-    seedMaps.forEach((map) => {
-      while (ranges.length !== 0) {
-        let [startRange, endRange] = ranges.pop();
-        let found = false;
-        for (const [target, startMap, r] of map) {
-          const endMap = startMap + r;
-          const offset = target - startMap;
-          if (endMap <= startRange || endRange <= startMap) {
-            continue;
+const partTwo = ([seeds, seedMaps]) =>
+  Math.min(
+    ...chunk(seeds, 2).flatMap(([begin, len]) => {
+      let ranges = Array([begin, begin + len]);
+      let res = [];
+      seedMaps.forEach((map) => {
+        while (ranges.length !== 0) {
+          let [start, end] = ranges.pop();
+          let found = false;
+          for (const [source, max, dest] of map) {
+            const diff = dest - source;
+            if (max <= start || end <= source) {
+              continue;
+            }
+            if (start < source) {
+              ranges.push([start, source]);
+              start = source;
+            }
+            if (max < end) {
+              ranges.push([max, end]);
+              end = max;
+            }
+            res.push([start + diff, end + diff]);
+            found = true;
+            break;
           }
-          if (startRange < startMap) {
-            ranges.push([startRange, startMap]);
-            startRange = startMap;
+          if (!found) {
+            res.push([start, end]);
           }
-          if (endMap < endRange) {
-            ranges.push([endMap, endRange]);
-            endRange = endMap;
-          }
-          res.push([startRange + offset, endRange + offset]);
-          found = true;
-          break;
         }
-        if (!found) {
-          res.push([startRange, endRange]);
-        }
-      }
-      ranges = res;
-      res = [];
-    });
-    locations.push(...ranges.map(range => range[0]));
-  });
-  return Math.min(...locations)
-};
+        ranges = res;
+        res = [];
+      });
+      return ranges.map((range) => range[0]);
+    }),
+  );
 
 const parse = (input) => {
   const [s, ...pages] = input.split('\n\n');
@@ -67,7 +63,12 @@ const parse = (input) => {
   pages.forEach((page) => {
     // eslint-disable-next-line no-unused-vars
     const [mapHeader, ...rules] = page.split('\n');
-    maps.push(rules.map((rule) => rule.split(' ').map(Number)));
+    maps.push(
+      rules.map((rule) => {
+        const [dest, source, offset] = rule.split(' ').map(Number);
+        return [source, source + offset, dest];
+      }),
+    );
   });
   return [seeds, maps];
 };
