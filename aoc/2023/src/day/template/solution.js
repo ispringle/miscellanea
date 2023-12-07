@@ -1,18 +1,33 @@
+/**
+ * @typedef {any} Parsed
+ */
+
+/**
+ * @param {Parsed} input 
+ * @returns any
+ */
 const partOne = (input) => {
-  input.split();
-  return 'one';
+  return input
 };
 
 const partTwo = (input) => {
-  input.split();
-  return 'two';
+  return input
 };
 
 /**
- * @param {string} inputOne
- * @param {string} inputTwo
+ * @param {string} input 
+ * @returns Parsed
+ */
+const parse = input => {
+  return input
+}
+
+/**
+ * @param {string} input
  * @returns [any, any]
  */
-export default function solver(inputOne, inputTwo) {
-  return [partOne(inputOne), partTwo(inputTwo)];
+export default function solver(input) {
+  const parsed = parse(input)
+  console.log(parsed)
+  return [partOne(parsed), partTwo(parsed)];
 }
