@@ -1,4 +1,5 @@
 import { LitElement, css, html } from 'lit';
+import { Task } from '@lit/task';
 import { defaultStyles } from '../../style';
 
 export class DayCard extends LitElement {
@@ -8,6 +9,7 @@ export class DayCard extends LitElement {
       solution: { attribute: false },
       partOneSolution: { type: String },
       partTwoSolution: { type: String },
+      source: { type: String },
     };
   }
 
@@ -40,6 +42,7 @@ export class DayCard extends LitElement {
     this.partOneSolution = '';
     this.partTwoSolution = '';
     this.solution = null;
+    this.source = '';
   }
 
   onChange(event) {
@@ -66,11 +69,32 @@ export class DayCard extends LitElement {
     this.solution.visualize();
   }
 
+  loadSrc = new Task(this, {
+    task: async () => {
+      const response = await fetch(
+        performance
+          .getEntriesByType('resource')
+          .map((resource) =>
+            resource.name.match(
+              new RegExp(`^.*/src/day/${this.day}/solution.js`),
+            ),
+          )
+          .filter((x) => x !== null)
+          .pop(),
+      );
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.text();
+    },
+    arg: () => {},
+  });
+
   render() {
     if (this.solution?.puzzleInput) {
       this.input = this.solution.puzzleInput;
     }
-
+    console.log(this.source);
     return html`
       <section>
         <h3>Day ${this.day} Solution</h3>
@@ -112,6 +136,14 @@ export class DayCard extends LitElement {
               `
             : ''}
         </fieldset>
+        <details>
+          <summary @click=${() => this.loadSrc.run()}>Source</summary>
+          ${this.loadSrc.render({
+            pending: () => html`<p>Loading...</p>`,
+            complete: (src) => html`<pre>${src}</pre>`,
+            error: (e) => html`<p>Error: ${e}</p>`,
+          })}
+        </details>
       </section>
     `;
   }
