@@ -41,7 +41,6 @@ const sumArr = (input) => input.reduce((acc, x) => acc + x, 0);
  * @returns number[]
  */
 const parse = (input, re) => {
-  console.log(re);
   return input.split('\n').map((line) => {
     let [first, ...rest] = Array.from(line.matchAll(re), (x) => x[1]);
     if (first === undefined) {

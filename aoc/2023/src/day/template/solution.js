@@ -28,6 +28,5 @@ const parse = input => {
  */
 export default function solver(input) {
   const parsed = parse(input)
-  console.log(parsed)
   return [partOne(parsed), partTwo(parsed)];
 }

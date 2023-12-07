@@ -72,15 +72,7 @@ export class DayCard extends LitElement {
   loadSrc = new Task(this, {
     task: async () => {
       const response = await fetch(
-        performance
-          .getEntriesByType('resource')
-          .map((resource) =>
-            resource.name.match(
-              new RegExp(`^.*/src/day/${this.day}/solution.js`),
-            ),
-          )
-          .filter((x) => x !== null)
-          .pop(),
+        `src/day/${this.day}/solution.js`
       );
       if (!response.ok) {
         throw new Error(response.status);
@@ -94,7 +86,6 @@ export class DayCard extends LitElement {
     if (this.solution?.puzzleInput) {
       this.input = this.solution.puzzleInput;
     }
-    console.log(this.source);
     return html`
       <section>
         <h3>Day ${this.day} Solution</h3>
