@@ -4,6 +4,7 @@ import three from './three';
 import four from './four';
 import five from './five';
 import six from './six';
+import seven from './seven';
 
 export default {
   one,
@@ -12,4 +13,5 @@ export default {
   four,
   five,
   six,
+  seven,
 };
