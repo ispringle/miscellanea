@@ -1,4 +1,9 @@
 /**
+ * The idea here is to take every hand, score it by the number of occurences of
+ * a card, take the best possible score for each hand (if wilds are in the
+ * hand), and then sort. The best hand will be at the top (`reverse`) and then
+ * we can reduce this array of sorted hands to tally up the score.
+ * 
  * @typedef {string} Hand
  * @typedef {number} Bid
  * @typedef {[Hand, Bid]} HandSet
@@ -7,6 +12,8 @@
 
 /**
  * Count the number of times `char` occurs in `str`
+ * This returns a func, so that it can be used with
+ * `.map()` and iterate over chars in an array.
  * @param {string} str
  * @returns function(char: sting): number
  */
@@ -21,7 +28,7 @@ const occurences =
     str.match(new RegExp(`${char}`, 'g') || []).length;
 
 /**
- * Returns all possible hands
+ * Returns all possible hand scores, considering wild cards
  * @param {string} hand
  * @returns [number, number, number, number, number]
  */
