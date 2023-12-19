@@ -43,7 +43,18 @@ export const chunk = (array, size = 1) => {
   return chunked;
 };
 
+/**
+ * 
+ * @param {array} arrOne 
+ * @param {array} arrTwo 
+ * @returns array
+ */
 export const interleave = (arrOne, arrTwo) =>
   arrOne.map((x, i) => [x, arrTwo[i]]).reduce((a, b) => a.concat(b));
 
+/**
+ * 
+ * @param  {...number} ints 
+ * @returns number
+ */
 export const product = (...ints) => ints.reduce((acc, x) => acc * x, 1);
