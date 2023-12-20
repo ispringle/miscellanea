@@ -58,3 +58,49 @@ export const interleave = (arrOne, arrTwo) =>
  * @returns number
  */
 export const product = (...ints) => ints.reduce((acc, x) => acc * x, 1);
+
+/**
+ * @param {[][]} arr
+ * @param {[x:  number, y: number]} coord
+ * @returns any[]
+ */
+export const squareNeighbors = (arr, [x, y]) =>
+  [
+    y > 0 ? [x, y - 1] : [],
+    x > 0 ? [x - 1, y] : [],
+    x < arr[0].length - 1 ? [x + 1, y] : [],
+    y < arr.length - 1 ? [x, y + 1] : [],
+  ].filter((coord) => coord.length !== 0);
+
+/**
+ * @param {[][]} arr 
+ * @param {[x:  number, y: number]} coord 
+ * @returns any[]
+ */
+export const neighbors = (arr, [x, y]) =>
+  [
+    ...(y > 0
+      ? [
+          [x, y - 1],
+          x > 0 ? [x - 1, y - 1] : [],
+          x < arr[0].length - 1 ? [x + 1, y - 1] : [],
+        ]
+      : []),
+    ...[x > 0 ? [x - 1, y] : [], x < arr[0].length - 1 ? [x + 1, y] : []],
+    ...(y < arr.length
+      ? [
+          [x, y + 1],
+          x > 0 ? [x - 1, y + 1] : [],
+          x < arr[0].length - 1 ? [x + 1, y + 1] : [],
+        ]
+      : []),
+  ].flatMap(([x, y]) => (x === undefined ? [] : arr[y][x]));
+
+/**
+ *
+ * @param {[]} a
+ * @param {[]} b
+ * @returns boolean
+ */
+export const arraysMatch = (a, b) =>
+  a.length === b.length && a.every((el, i) => el === b[i]);
