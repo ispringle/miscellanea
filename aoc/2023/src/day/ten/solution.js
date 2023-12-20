@@ -29,7 +29,7 @@ const route = (grid, prev, next) => {
   let loop = [next];
   while (!arraysMatch(start, next) && !arraysMatch(prev, next)) {
     [prev, next] = [next, follow(grid, prev, next)];
-    loop.push(next)
+    loop.push(next);
   }
   if (arraysMatch(start, next)) {
     return loop;
@@ -38,6 +38,29 @@ const route = (grid, prev, next) => {
 };
 
 /**
+ * Get 2D cross product
+ * @param {[number, number]} a
+ * @param {[number, number]} b
+ * @returns number
+ */
+const cross = (a, b) => a[0] * b[1] - a[1] * b[0];
+
+/**
+ * Get area of polygon via shoelace formula
+ * @param {[number, number][]} matrix
+ * @returns number
+ */
+const area = (matrix) =>
+  matrix.reduce(
+    (acc, _, i) =>
+      i < matrix.length - 1 ? acc + cross(matrix[i], matrix[i + 1]) : acc,
+    0,
+  ) / 2;
+
+/**
+ * Follows all possible paths, only two (out of a max of four) will return to
+ * start, as soon as we find any path that returns to start we can "break",
+ * which we do in a reduce by just returning the already calculated path.
  * @param {Parsed} input
  * @returns any
  */
@@ -55,10 +78,6 @@ const findLoop = (input) => {
     );
 };
 
-const partTwo = (input) => {
-  return input;
-};
-
 /**
  * @param {string} input
  * @returns Parsed
@@ -69,9 +88,10 @@ const parse = (input) => input.split('\n').map((line) => [...line]);
  * @param {string} input
  * @returns [any, any]
  */
-export default function solver(input) {
-  const parsed = parse(input);
-  const loop = findLoop(parsed);
-  console.log(loop)
-  return [Math.ceil(loop.length / 2), partTwo(parsed)];
+export default function solver(input, inputTwo) {
+  const loop = findLoop(parse(inputTwo));
+  const loopLength = Math.ceil(loop.length / 2);
+  const loopArea = area(loop);
+  const innerTiles = Math.floor(loopArea) - loopLength + 1
+  return [loopLength, innerTiles];
 }
