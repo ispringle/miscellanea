@@ -51,11 +51,11 @@ const cross = (a, b) => a[0] * b[1] - a[1] * b[0];
  * @returns number
  */
 const area = (matrix) =>
-  matrix.reduce(
+  Math.abs(matrix.reduce(
     (acc, _, i) =>
       i < matrix.length - 1 ? acc + cross(matrix[i], matrix[i + 1]) : acc,
     0,
-  ) / 2;
+  ) / 2);
 
 /**
  * Follows all possible paths, only two (out of a max of four) will return to
