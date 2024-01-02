@@ -1,4 +1,4 @@
-import { arraysMatch, squareNeighbors } from '../utils';
+import { arraysMatch, squareNeighbors, sum } from '../utils';
 
 /**
  * @typedef {[string[], number, number]} Parsed map, length, width
@@ -78,6 +78,20 @@ const findLoop = (input) => {
     );
 };
 
+const countTiles = (grid, path) => sum(
+  grid.map((row, y) => {
+    let inside = false;
+    sum(row.reduce((acc, char, x) => {
+      if (path.map(coord => coord.toString()).includes(`${x},${y}`)) {
+        if ('|JL'.includes(char)) inside = !inside;
+      } else {
+        return acc + 1
+      }
+        return acc
+    }, 0))
+  })
+)
+
 /**
  * @param {string} input
  * @returns Parsed
@@ -89,9 +103,11 @@ const parse = (input) => input.split('\n').map((line) => [...line]);
  * @returns [any, any]
  */
 export default function solver(input, inputTwo) {
+  const parsed = parse(inputTwo)
   const loop = findLoop(parse(inputTwo));
   const loopLength = Math.ceil(loop.length / 2);
   const loopArea = area(loop);
+  console.log(countTiles(parsed, loop))
   const innerTiles = Math.floor(loopArea) - loopLength + 1
   return [loopLength, innerTiles];
 }
