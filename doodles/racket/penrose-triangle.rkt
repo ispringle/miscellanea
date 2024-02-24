@@ -9,7 +9,7 @@
     (pt (calc (pt-x b) (pt-x a)) (calc (pt-y b) (pt-y a)))))
 
 (define find-point
-  (lambda (a b ∠abc cw [bc (dist a b)])
+  (lambda (a b ∠abc cw (bc (dist a b)))
     "Finds point C given A, B, the angle of ABC, and optionally the distance bc."
     (define ∠ab (atan (- (pt-y a) (pt-y b)) (- (pt-x a) (pt-x b))))
     (if cw
@@ -26,7 +26,7 @@
   (list a b c))
 
 (define points
-  (lambda (pts [cnct --])
+  (lambda (pts (cnct --))
     (if (not (null? (cdr pts)))
         (cons (car pts) (cons cnct (points (cdr pts))))
         (car pts))))
@@ -47,13 +47,13 @@
 
 (define segment
   (let*
-      ([a inner-c]
-       [b right-a]
-       [c (extend-point right-a right-b cross-width)]
-       [d (extend-point right-c right-b cross-width)]
-       [e (extend-point top-c top-a cross-width)]
-       [f top-c]
-       [g inner-c])
+      ((a inner-c)
+       (b right-a)
+       (c (extend-point right-a right-b cross-width))
+       (d (extend-point right-c right-b cross-width))
+       (e (extend-point top-c top-a cross-width))
+       (f top-c)
+       (g inner-c))
     (list a b c d e f g)))
 
 (define win-max (* 40 scale))

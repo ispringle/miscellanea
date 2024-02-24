@@ -9,7 +9,7 @@
     (pt (calc (pt-x b) (pt-x a)) (calc (pt-y b) (pt-y a)))))
 
 (define find-point
-  (lambda (a b ∠abc cw [bc (dist a b)])
+  (lambda (a b ∠abc cw (bc (dist a b)))
     "Finds point C given A, B, the angle of ABC, and optionally the distance bc."
     (define ∠ab (atan (- (pt-y a) (pt-y b)) (- (pt-x a) (pt-x b))))
     (if cw
@@ -26,12 +26,12 @@
   (list a b c))
 
 (define points
-  (lambda (pts [cnct --])
+  (lambda (pts (cnct --))
     (if (not (null? (cdr pts)))
         (cons (car pts) (cons cnct (points (cdr pts))))
         (car pts))))
 
-(define (loop-points pts [cnct --])
+(define (loop-points pts (cnct --))
   (cons (points pts) (cons cnct (car pts))))
 
 (define centroid (pt 0 0))
@@ -50,53 +50,53 @@
 
 (define left-segment
   (let*
-      ([a inner-b]
-       [b (extend-point inner-a inner-b cross-width)]
-       [c (extend-point b left-c cross-width)]
-       [d (extend-point left-b left-a cross-width)]
-       [e top-a]
-       [f top-c]
-       [g inner-b])
+      ((a inner-b)
+       (b (extend-point inner-a inner-b cross-width))
+       (c (extend-point b left-c cross-width))
+       (d (extend-point left-b left-a cross-width))
+       (e top-a)
+       (f top-c)
+       (g inner-b))
     (list a b c d e f g)))
 
 (define right-segment
   (let*
-      ([a inner-c]
-       [b right-a]
-       [c (extend-point right-a right-b cross-width)]
-       [d (extend-point right-c right-b cross-width)]
-       [e (extend-point d (extend-point top-c top-a cross-width) (* 2 cross-width))]
-       [f (extend-point c b (* 3 cross-width))]
-       [g (extend-point c b cross-width)]
-       [h top-c]
-       [i inner-c])
+      ((a inner-c)
+       (b right-a)
+       (c (extend-point right-a right-b cross-width))
+       (d (extend-point right-c right-b cross-width))
+       (e (extend-point d (extend-point top-c top-a cross-width) (* 2 cross-width)))
+       (f (extend-point c b (* 3 cross-width)))
+       (g (extend-point c b cross-width))
+       (h top-c)
+       (i inner-c))
     (list a b c d e f g h i)))
 
 (define bottom-segment
   (let*
-      ([a inner-a]
-       [b right-a]
-       [c (extend-point right-a right-b cross-width)]
-       [d (extend-point left-a left-c cross-width)]
-       [e (extend-point left-b left-c cross-width)]
-       [f left-b]
-       [g inner-b])
+      ((a inner-a)
+       (b right-a)
+       (c (extend-point right-a right-b cross-width))
+       (d (extend-point left-a left-c cross-width))
+       (e (extend-point left-b left-c cross-width))
+       (f left-b)
+       (g inner-b))
     (list a b c d e f g)))
 
 (define top-left-segment
   (let*
-      ([a (extend-point right-b right-a cross-width)]
-       [b (extend-point right-a a (* 2 cross-width))]
-       [d (extend-point inner-a left-a cross-width)]
-       [c (extend-point left-a d (* 2 cross-width))])
+      ((a (extend-point right-b right-a cross-width))
+       (b (extend-point right-a a (* 2 cross-width)))
+       (d (extend-point inner-a left-a cross-width))
+       (c (extend-point left-a d (* 2 cross-width))))
     (list a b c d)))
 
 (define top-segment
   (let*
-      ([a (extend-point right-b right-a (* 3 cross-width))]
-       [b (extend-point inner-a left-a (* 3 cross-width))]
-       [c (extend-point right-a a cross-width)]
-       [d (find-point b c (rad 120) #t cross-width)])
+      ((a (extend-point right-b right-a (* 3 cross-width)))
+       (b (extend-point inner-a left-a (* 3 cross-width)))
+       (c (extend-point right-a a cross-width))
+       (d (find-point b c (rad 120) #t cross-width)))
     (list a b c d)))
 
 (define red (make-color* 157 31 36))
