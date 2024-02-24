@@ -34,10 +34,8 @@
 (define (loop-points pts [cnct --])
   (cons (points pts) (cons cnct (car pts))))
 
-(define scale 1)
-
 (define centroid (pt 0 0))
-(define inner-distance (* 5 scale))
+(define inner-distance 5)
 
 (define inner-tri (calculate-triangle centroid inner-distance))
 (match-define (list inner-a inner-b inner-c) inner-tri)
@@ -104,8 +102,9 @@
 (define red (make-color* 157 31 36))
 (define blue (make-color* 63 93 167))
 
-(define win-max (* 60 scale))
-(define win-min (* win-max -1))
+(define win-max 45)
+(define win-min -28)
+(set-curve-pict-size 600 600)
 (with-window (window win-min win-max win-min win-max)
   (draw
    (filldraw (curve (points right-segment)) red "black")
