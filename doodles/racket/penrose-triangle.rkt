@@ -4,8 +4,7 @@
 (define extend-point
   (lambda (a b extn)
     "Extends line AB by extn, returns the point extended beyond b"
-    (define ab (dist a b))
-    (define calc (lambda (n1 n2) (+ n1 (* (/ (- n1 n2) ab) extn))))
+    (define calc (lambda (n1 n2) (+ n1 (* (/ (- n1 n2) (dist a b)) extn))))
     (pt (calc (pt-x b) (pt-x a)) (calc (pt-y b) (pt-y a)))))
 
 (define find-point
@@ -31,17 +30,17 @@
         (cons (car pts) (cons cnct (points (cdr pts))))
         (car pts))))
 
-(define scale 1)
-
 (define centroid (pt 0 0))
-(define inner-distance (* 5 scale))
+(define inner-distance 5)
 
-(define inner-tri (calculate-triangle centroid inner-distance))
-(match-define (list inner-a inner-b inner-c) inner-tri)
-(define top-tri (calculate-triangle inner-a (* inner-distance 3)))
-(match-define (list top-a top-b top-c) top-tri)
-(define right-tri (calculate-triangle inner-b (* inner-distance 3)))
-(match-define (list right-a right-b right-c) right-tri)
+(match-define (list inner-a inner-b inner-c)
+              (calculate-triangle centroid inner-distance))
+(match-define (list top-a top-b top-c)
+              (calculate-triangle inner-a (* inner-distance 3)))
+(match-define (list left-a left-b left-c)
+              (calculate-triangle inner-c (* inner-distance 3)))
+(match-define (list right-a right-b right-c)
+              (calculate-triangle inner-b (* inner-distance 3)))
 
 (define cross-width (dist inner-b top-b))
 
@@ -56,8 +55,9 @@
        (g inner-c))
     (list a b c d e f g)))
 
-(define win-max (* 40 scale))
-(define win-min (* win-max -1))
+(define win-max 45)
+(define win-min -28)
+(set-curve-pict-size 600 600)
 (with-window (window win-min win-max win-min win-max)
   (draw
    (filldraw (curve (points segment)) "red" "black")

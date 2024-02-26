@@ -10,7 +10,7 @@
 (define find-point
         (lambda (a b ∠abc cw (bc (dist a b)))
           "Finds point C given A, B, the angle of ABC, and optionally the distance bc."
-          (let (((∠ab (atan (- (pt-y a) (pt-y b)) (- (pt-x a) (pt-x b))))))
+          (let ((∠ab (atan (- (pt-y a) (pt-y b)) (- (pt-x a) (pt-x b)))))
             (if cw
                 (pt (+ (pt-x b) (* bc (cos (+ ∠ab ∠abc))))
                     (+ (pt-y b) (* bc (sin (+ ∠ab ∠abc)))))
@@ -60,9 +60,8 @@
              (c (extend-point b left-c cross-width))
              (d (extend-point left-b left-a cross-width))
              (e top-a)
-             (f top-c)
-             (g inner-b))
-          (list a b c d e f g)))
+             (f top-c))
+          (list a b c d e f)))
 
 (define right-segment
         (let*
@@ -73,9 +72,8 @@
              (e (extend-point d (extend-point top-c top-a cross-width) (* 2 cross-width)))
              (f (extend-point c b (* 3 cross-width)))
              (g (extend-point c b cross-width))
-             (h top-c)
-             (i inner-c))
-          (list a b c d e f g h i)))
+             (h top-c))
+          (list a b c d e f g h)))
 
 (define bottom-segment
         (let*
@@ -111,9 +109,9 @@
 (define win-min -28)
 (set-curve-pict-size 600 600)
 (with-window (window win-min win-max win-min win-max)
-             (draw
-              (filldraw (curve (points right-segment)) red "black")
-              (filldraw (curve (points left-segment)) "white" "black")
-              (filldraw (curve (points top-segment)) "white" "black")
-              (filldraw (curve (points bottom-segment)) blue "black")
-              (filldraw (curve (points top-left-segment)) blue "black")))
+             (penwidth 5 (draw
+              (filldraw (curve (loop-points right-segment)) red "black")
+              (filldraw (curve (loop-points left-segment)) "white" "black")
+              (filldraw (curve (loop-points top-segment)) "white" "black")
+              (filldraw (curve (loop-points bottom-segment)) blue "black")
+              (filldraw (curve (loop-points top-left-segment)) blue "black"))))
