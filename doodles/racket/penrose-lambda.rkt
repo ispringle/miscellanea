@@ -104,14 +104,15 @@
 
 (define red (make-color* 157 31 36))
 (define blue (make-color* 63 93 167))
+(define line-color (make-color* 255 255 255))
 
 (define win-max 45)
 (define win-min -28)
 (set-curve-pict-size 600 600)
 (with-window (window win-min win-max win-min win-max)
-  (penwidth 5 (draw
-               (filldraw (curve (loop-points right-segment)) red "black")
-               (filldraw (curve (loop-points left-segment)) "white" "black")
-               (filldraw (curve (loop-points top-segment)) "white" "black")
-               (filldraw (curve (loop-points bottom-segment)) blue "black")
-               (filldraw (curve (loop-points top-left-segment)) blue "black"))))
+  (penwidth 10 (draw
+               (filldraw (curve (loop-points right-segment)) red line-color)
+               (filldraw (curve (loop-points left-segment)) "white" line-color)
+               (filldraw (curve (loop-points top-segment)) "white" line-color)
+               (filldraw (curve (loop-points bottom-segment)) blue line-color)
+               (filldraw (curve (loop-points top-left-segment)) blue line-color))))
