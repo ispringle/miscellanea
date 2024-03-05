@@ -12,15 +12,19 @@
 (defparameter *known-primes* '(2 3 5))
 
 (defun sieve (n)
-  "Return a list of factors below n"
-  (declare (type integer n))
-  (let ((sieve (loop for i from 3 upto (+ 1 n)
-                     when (oddp i) collect i)))
-    (loop for p in sieve
-          when (and (not (zerop p)) (not (> (* p p) n)))
-            do (loop for q from (* p p) upto (+ 1 n) by (* 2 p)
-                     do (setf (nth (/ (- q 3) 2) sieve) 0)))
-    (cons 2 (remove-if #'zerop sieve))))
+  "Prime numbers sieve for odd numbers. 
+   Returns a list with all the primes that are less than or equal to n."
+  (let* ((limit (ash (- n 1) -1))
+         (stop (ash (isqrt n) -1))
+         (sieve (make-array (+ 1 limit) :element-type 'bit :initial-element 0)))
+    (loop for i from 1 to limit
+          for odd-number = (1+ (ash i 1))
+          when (zerop (sbit sieve i))
+            collect odd-number into values
+          when (<= i stop)
+            do (loop for j from (* i (1+ i) 2) to limit by odd-number
+                     do (setf (sbit sieve j) 1))
+          finally (return (cons 2 values)))))
 
 (defun list-primep-until (limit)
   "Returns an array of t/nil for each number upto limit.
