@@ -2,7 +2,9 @@
   (:use :cl)
   (:export :?
    :** :1-to
-   :sum :dividesp))
+   :sum :dividesp
+   :partition :window
+   :dowindow))
 
 (in-package #:utils)
 
@@ -23,3 +25,18 @@
 
 (defun dividesp (a b)
   (zerop (mod a b)))
+
+(defun partition (list size)
+  (loop for window on list by #'(lambda (list)
+                                  (nthcdr size list))
+        collecting (subseq window 0 size)))
+
+(defun window (thing size)
+  (loop for window on thing
+        while (nthcdr (1- size) window)
+        collecting (subseq window 0 size)))
+
+(defun dowindow (thing size func)
+  (loop for window on thing
+        while (nthcdr (1- size) window)
+        collecting (apply func (subseq window 0 size))))
