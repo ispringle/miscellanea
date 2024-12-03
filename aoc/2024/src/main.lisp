@@ -2,4 +2,6 @@
   (:use #:cl))
 (in-package #:aoc24)
 
-;; blah blah blah.
+(named-readtables:defreadtable
+    :sugar
+  (:merge :fn.reader))

@@ -1,5 +1,7 @@
 (uiop:define-package aoc24.day.one
-  (:use #:cl #:str))
+  (:use #:cl)
+  (:import-from #:str
+   :words :lines))
 (in-package #:aoc24.day.one)
 
 (defparameter *test-input*

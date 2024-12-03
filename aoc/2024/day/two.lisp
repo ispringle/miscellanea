@@ -1,6 +1,10 @@
-(uiop:define-package aoc24.day.one
-  (:use #:cl #:str))
-(in-package #:aoc24.day.one)
+(uiop:define-package aoc24.day.two
+  (:use #:cl)
+  (:import-from #:str
+   :lines :words)
+  (:import-from #:aoc24.utils
+   :list= :within-range))
+(in-package #:aoc24.day.two)
 
 (defparameter *test-input*
   "7 6 4 2 1
@@ -11,18 +15,6 @@
 1 3 6 7 9")
 
 (defparameter *input* (uiop:read-file-string "input/two.txt"))
-
-(defun list= (l1 l2 &optional (test #'equal))
-  (loop for i in l1
-        for j in l2
-        always (funcall test i j)))
-
-(defun within-range (l min max)
-  (loop for i from 0 below (1- (length l))
-        always (let* ((current (nth i l))
-                      (next (nth (1+ i) l))
-                      (diff (abs (- current next))))
-                 (and (<= min diff) (>= max diff)))))
 
 (defun is-safep (report)
   (when (and (or (list= report (sort (copy-seq report) #'<))

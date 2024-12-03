@@ -10,11 +10,14 @@
   :depends-on ("str"
                "iterate"
                "fset"
-               "cl-ppcre")
+               "cl-ppcre"
+               "fn")
   :components ((:module "src"
                 :components
-                ((:file "main")))
+                ((:file "main")
+                 (:file "utils")))
                (:module "day"
+                :depends-on ("src")
                 :components #.(mapcar #'(lambda (p) (list :file (pathname-name p)))
                                       (directory-files (pathname-directory-pathname
                                                         (uiop/lisp-build:current-lisp-file-pathname))

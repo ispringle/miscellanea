@@ -1,6 +1,9 @@
-(uiop:define-package aoc24.day.one
-  (:use #:cl #:cl-ppcre))
-(in-package #:aoc24.day.one)
+(uiop:define-package aoc24.day.three
+  (:use #:cl)
+  (:import-from #:cl-ppcre
+   :create-scanner :do-register-groups
+   :regex-replace-all))
+(in-package #:aoc24.day.three)
 
 (defparameter *test-input*
   "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))")
@@ -20,3 +23,4 @@
 
 (solve *test-input*)                    ; => (161 48)
 (solve *input*)
+
