@@ -6,25 +6,15 @@
 (defparameter input (uiop:read-file-string "input/three.txt"))
 
 (defun solve (input)
-  (let* ((re-ops (ppcre:create-scanner "(mul\\((\\d{1,3}),(\\d{1,3})\\)|do\\(\\))|don't\\(\\)"))
-         (re-num (ppcre:create-scanner "\\d{1,3}"))
-         (valid-ops (ppcre:all-matches-as-strings re-ops input))
-         (include t)
-         (parsed (mapcar #'(lambda (m)
-                             (cond ((equal m "do()") (progn (setf include t) (list 0 include)))
-                                   ((equal m "don't()") (progn (setf include nil) (list 0 include)))
-                                   (t
-                                    (list 
-                                     (apply #'* (mapcar #'parse-integer (ppcre:all-matches-as-strings re-num m)))
-                                     include))))
-                         valid-ops))
-         (one (reduce #'(lambda (sum pair)
-                          (+ sum (car pair)))
-                      parsed :initial-value 0))
-         (two (reduce #'(lambda (sum pair)
-                          (+ sum (if (cadr pair) (car pair) 0)))
-                      parsed :initial-value 0)))
-    (list one two)))
+  (let* ((re (ppcre:create-scanner "mul\\((\\d{1,3}),(\\d{1,3})\\)"))
+         (do-mul (lambda (ops &aux (sum 0))
+                   (ppcre:do-register-groups ((#'parse-integer x y)) (re ops sum)
+                     (incf sum (* x y))))))
+    (list
+     (funcall do-mul input)
+     (funcall do-mul (ppcre:regex-replace-all
+                      "(?s)don't\\(\\).*?(?:do\\(\\)|//Z)"
+                      input "")))))
 
 (solve *test-input*)                    ; => (161 48)
 (solve input)
