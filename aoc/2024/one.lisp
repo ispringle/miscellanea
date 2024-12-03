@@ -1,6 +1,6 @@
 (ql:quickload 'str)
 
-(defvar test-input
+(defparameter test-input
   "3   4
 4   3
 2   5
