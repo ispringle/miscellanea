@@ -1,6 +1,8 @@
-(ql:quickload 'str)
+(uiop:define-package aoc24.day.one
+  (:use #:cl #:str))
+(in-package #:aoc24.day.one)
 
-(defparameter test-input
+(defparameter *test-input*
   "7 6 4 2 1
 1 2 7 8 9
 9 7 6 2 1
@@ -8,7 +10,7 @@
 8 6 4 4 1
 1 3 6 7 9")
 
-(defparameter input (uiop:read-file-string "input/two.txt"))
+(defparameter *input* (uiop:read-file-string "input/two.txt"))
 
 (defun list= (l1 l2 &optional (test #'equal))
   (loop for i in l1
@@ -30,8 +32,8 @@
 
 (defun solve (input)
   (let* ((reports (mapcar #'(lambda (line)
-                              (mapcar #'parse-integer (str:words line)))
-                          (str:lines input)))
+                              (mapcar #'parse-integer (words line)))
+                          (lines input)))
          (safe-reports (loop for report in reports
                              count (is-safep report) into no-dampening
                              count (or (is-safep report)
@@ -42,4 +44,4 @@
                              finally (return (list no-dampening with-dampening)))))
     safe-reports))
 
-(solve input)
+(solve *input*)

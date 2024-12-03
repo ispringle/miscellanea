@@ -1,0 +1,13 @@
+(uiop:define-package aoc24.day.num
+  (:use #:cl))
+(in-package #:aoc24.day.num)
+
+(defparameter *test-input* "")
+
+(defparameter *input* (uiop:read-file-string "input/num.txt"))
+
+(defun solve (input)
+  input)
+
+(solve *test-input*)
+(solve *input*)
