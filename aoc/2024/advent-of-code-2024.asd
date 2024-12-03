@@ -6,7 +6,7 @@
   :version "0.0.1"
   :author "Ian S. Pringle"
   :mailto "ian@dapringles.com"
-  :license "Unlicense"
+  :license "BSD0"
   :depends-on ("str"
                "iterate"
                "fset"
