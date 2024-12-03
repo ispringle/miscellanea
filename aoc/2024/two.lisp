@@ -1,5 +1,4 @@
-(ql:quickload str)
-(ql:quickload "iterate")
+(ql:quickload 'str)
 
 (defparameter test-input
   "7 6 4 2 1
@@ -9,7 +8,7 @@
 8 6 4 4 1
 1 3 6 7 9")
 
-(defvar input (uiop:read-file-string "day2.txt"))
+(defvar input (uiop:read-file-string "input/two.txt"))
 
 (defun list= (l1 l2 &optional (test #'equal))
   (loop for i in l1

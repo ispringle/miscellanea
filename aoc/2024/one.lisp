@@ -1,4 +1,4 @@
-(ql:quickload "str")
+(ql:quickload 'str)
 
 (defvar test-input
   "3   4
@@ -21,5 +21,5 @@
                                 (sort (cadr lists) #'<)))))
     (list s1 s2)))
 
-(solve (uiop:read-file-string "day1.txt"))
+(solve (uiop:read-file-string "input/one.txt"))
 (solve test-input)                      ; => (11 31)
