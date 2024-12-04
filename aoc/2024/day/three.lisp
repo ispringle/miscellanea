@@ -2,13 +2,15 @@
   (:use #:cl)
   (:import-from #:cl-ppcre
    :create-scanner :do-register-groups
-   :regex-replace-all))
+   :regex-replace-all)
+  (:import-from #:aoc24
+   :get-input))
 (in-package #:aoc24.day.three)
 
 (defparameter *test-input*
   "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))")
 
-(defparameter *input* (uiop:read-file-string "input/three.txt"))
+(defparameter *input* (get-input 3))
 
 (defun solve (input)
   (let* ((re (create-scanner "mul\\((\\d{1,3}),(\\d{1,3})\\)"))

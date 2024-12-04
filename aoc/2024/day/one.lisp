@@ -1,7 +1,9 @@
 (uiop:define-package aoc24.day.one
   (:use #:cl)
   (:import-from #:str
-   :words :lines))
+   :words :lines)
+  (:import-from #:aoc24
+   :get-input))
 (in-package #:aoc24.day.one)
 
 (defparameter *test-input*
@@ -12,7 +14,7 @@
 3   9
 3   3")
 
-(defparameter *input* (uiop:read-file-string "input/one.txt"))
+(defparameter *input* (get-input 1))
 
 (defun solve (input)
   (let* ((lists (apply #'mapcar #'(lambda (&rest ns)

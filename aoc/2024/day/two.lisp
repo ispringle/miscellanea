@@ -2,6 +2,8 @@
   (:use #:cl)
   (:import-from #:str
    :lines :words)
+  (:import-from #:aoc24
+   :get-input)
   (:import-from #:aoc24.utils
    :list= :within-range))
 (in-package #:aoc24.day.two)
@@ -14,7 +16,7 @@
 8 6 4 4 1
 1 3 6 7 9")
 
-(defparameter *input* (uiop:read-file-string "input/two.txt"))
+(defparameter *input* (get-input 2))
 
 (defun is-safep (report)
   (when (and (or (list= report (sort (copy-seq report) #'<))

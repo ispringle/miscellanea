@@ -11,7 +11,8 @@
                "iterate"
                "fset"
                "cl-ppcre"
-               "fn")
+               "fn"
+               "drakma")
   :components ((:module "src"
                 :components
                 ((:file "main")

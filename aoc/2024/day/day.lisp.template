@@ -1,10 +1,12 @@
 (uiop:define-package aoc24.day.num
-  (:use #:cl))
+  (:use #:cl)
+  (:import-from #:aoc24
+   :get-input))
 (in-package #:aoc24.day.num)
 
 (defparameter *test-input* "")
 
-(defparameter *input* (uiop:read-file-string "input/num.txt"))
+(defparameter *input* (get-input day#))
 
 (defun solve (input)
   input)
