@@ -1,0 +1,22 @@
+* Advent-Of-Code 2024 
+
+** Usage
+Load the asdf system. Each solution is in the ~day~ directory. Currently to
+execute a solution you must run the specific day, there is no CLI or other
+interface for invoking the solution.
+
+To automate the downloading of input files, log into the AOC website, than
+inspect storage for your session cookie. Copy the value to a file called
+~aoc-cookie~. This file is ~.gitignored~.
+
+** Author
+
++ Ian S. Pringle (ian@dapringles.com)
+
+** Copyright
+
+Copyright (c) 2024 Ian S. Pringle (ian@dapringles.com)
+
+** License
+
+Licensed under the 0BSD License.
