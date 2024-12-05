@@ -40,5 +40,3 @@
     (if (probe-file file)
         (uiop:read-file-string file)
         (save-and-return-file (fetch-input day) file))))
-
-(get-input 3)
