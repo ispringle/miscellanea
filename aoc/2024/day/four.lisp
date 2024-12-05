@@ -51,14 +51,38 @@ MXMXAXMASX")
 (defun subseq-2d (grid x y)
   (mapcar #'(lambda (row) (subseq row x)) (subseq grid y)))
 
+(defun coord-is-char-p (char grid x y)
+  (and (<= 0 y)
+       (<= 0 x)
+       (< y (length grid))
+       (< x (length (nth y grid)))
+       (char= char (nth x (nth y grid)))))
+
+(defun x-mas-p (grid x y)
+  "Given a 2D `grid' and the `x' & `y' coords, assuming `x'`y' is a `#\A',
+determine if the coord is the center of \"x-mas\""
+  (and (coord-is-char-p #\M grid (1- x) (1- y))
+       (coord-is-char-p #\M grid (1+ x) (1- y))
+       (coord-is-char-p #\S grid (1- x) (1+ y))
+       (coord-is-char-p #\S grid (1+ x) (1+ y))))
+
+(defun tally-x-mas (grid x y)
+  (cond
+    ((not (char= #\A (nth x (nth y grid)))) 0)
+    ((x-mas-p grid x y) 1)
+    (t 0)))
+
 (defun solve (input)
   (let* ((grid 
            (mapcar #'(lambda (s) (coerce s 'list)) (lines input)))
          (grid90 (rotl grid)) (grid180 (rotl grid90))
-         (grid270 (rotl grid180)) (search-term '(#\X #\M #\A #\S)))
+         (grid270 (rotl grid180)) (search-term '(#\X #\M #\A #\S))
+         (part-one 0) (part-two 0))
     (iter (for y below (length grid))
-      (sum (iter (for x below (length (car grid)))
-             (sum (iter (for g in (list grid grid90 grid180 grid270))
-                    (sum (tally-word (subseq-2d g x y) search-term)))))))))
+      (iter (for x below (length (car grid)))
+        (iter (for g in (list grid grid90 grid180 grid270))
+          (progn (setf part-one (+ part-one (tally-word (subseq-2d g x y) search-term)))
+                 (setf part-two (+ part-two (tally-x-mas g x y)))))))
+    (list part-one part-two)))
 
 (solve *input*)
