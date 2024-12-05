@@ -19,9 +19,7 @@ MXMXAXMASX")
 
 (defparameter *input* (get-input 4))
 
-(defun rotl (l)
-  (mapcar #'reverse
-          (apply #'mapcar #'list l)))
+(defun rotl (ls) (apply #'mapcar #'(lambda (&rest l) (reverse l)) ls))
 
 (defun word-forward-p (row word)
   (cond
@@ -52,8 +50,7 @@ MXMXAXMASX")
   (mapcar #'(lambda (row) (subseq row x)) (subseq grid y)))
 
 (defun coord-is-char-p (char grid x y)
-  (and (<= 0 y)
-       (<= 0 x)
+  (and (<= 0 y) (<= 0 x)
        (< y (length grid))
        (< x (length (nth y grid)))
        (char= char (nth x (nth y grid)))))
