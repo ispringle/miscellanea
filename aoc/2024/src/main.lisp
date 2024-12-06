@@ -15,7 +15,8 @@
   (let* ((uri (format nil "https://adventofcode.com/2024/day/~a/input" day))
          (cookie (make-instance 'cookie
 			        :name "session"
-			        :value (uiop:read-file-string "aoc-cookie")
+			        :value (uiop:read-file-string
+                                        (asdf:system-relative-pathname 'advent-of-code-2024 "aoc-cookie"))
                                 :domain ".adventofcode.com"))
          (jar (make-instance 'cookie-jar
                              :cookies (list cookie)))
@@ -36,7 +37,9 @@
   contents)
 
 (defun get-input (day)
-  (let ((file (format nil "input/~a.txt" day)))
+  (let ((file (format nil "~a/~a.txt"
+                      (asdf:system-relative-pathname 'advent-of-code-2024 "input/")
+                      day)))
     (if (probe-file file)
         (uiop:read-file-string file)
         (save-and-return-file (fetch-input day) file))))
