@@ -89,30 +89,39 @@
     (:east (list (nth 3 bounding) (cadr loc)))
     (:west (list (nth 1 bounding) (cadr loc)))))
 
+(defun map-path (objects guard bounding)
+  (block mapper
+      (let* ((dir :north)
+             (next (next-coor guard objects dir))
+             (steps (make-hash-table :test 'equalp)))
+        (iter
+          (while next)
+          (iter (for x in  (coors-between guard next))
+            (if (not (member dir (gethash x steps '())))
+                (setf (gethash x steps) (adjoin dir (gethash x steps '())))
+                (return-from mapper nil)))
+          (after-each (setf guard next
+                            dir (case dir
+                                  (:north :west) (:west :south)
+                                  (:south :east) (:east :north))
+                            next (next-coor guard objects dir)))
+          (finally (iter (for x in (coors-between guard
+                                                  (nearest-edge guard bounding dir)))
+                     (setf (gethash x steps) (adjoin dir (gethash x steps '()))))))
+        steps)))
+
 (defun solve (input)
   (let* ((grid 
            (mapcar #'(lambda (s) (coerce s 'list)) (str:lines input)))
          (objects (char-coords grid #\#))
          (guard (car (char-coords grid #\^)))
-         (dir :north)
-         (next (next-coor guard objects dir))
-         (bounding (make-bounding-box grid)))
-    (iter
-      (while next)
-      (nconcing (coors-between guard next) into steps)
-      (after-each (setf guard next
-                        dir (case dir
-                              (:north :west)
-                              (:west :south)
-                              (:south :east)
-                              (:east :north))
-                        next (next-coor guard objects dir)))
-      (finally (return (length (remove-duplicates (nconc
-                                                   steps
-                                                   (coors-between guard
-                                                                  (nearest-edge guard bounding
-                                                                                dir)))
-                                                  :test #'aoc24.utils:list=)))))))
+         (bounding (make-bounding-box grid))
+         (normal-patrol (map-path objects guard bounding))
+         (loop-patrols 0))
+    (iter (for (k v) in-hashtable normal-patrol)
+      (unless (map-path (append objects (list k)) guard bounding)
+        (incf loop-patrols)))
+    (list (hash-table-count normal-patrol) loop-patrols)))
 
 (solve *test-input*)
 (solve *input*)

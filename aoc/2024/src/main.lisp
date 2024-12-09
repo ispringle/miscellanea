@@ -3,7 +3,8 @@
   (:import-from #:drakma
    :http-request :cookie-jar
    :cookie)
-  (:export #:get-input))
+  (:export #:get-input
+           #:prinh))
 (in-package #:aoc24)
 
 ;; (named-readtables:defreadtable
@@ -43,3 +44,11 @@
     (if (probe-file file)
         (uiop:read-file-string file)
         (save-and-return-file (fetch-input day) file))))
+
+(defun print-hash-entry (key value)
+  (format t "~S: ~S~%"
+          key value))
+
+(defun prinh (hash)
+  "Print's out the key-value pairs of a hashmap."
+  (maphash #'print-hash-entry hash))
