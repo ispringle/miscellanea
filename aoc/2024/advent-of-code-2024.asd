@@ -12,7 +12,8 @@
                "fset"
                "cl-ppcre"
                "fn"
-               "drakma")
+               "drakma"
+               "let-plus")
   :components ((:module "src"
                 :components
                 ((:file "main")
