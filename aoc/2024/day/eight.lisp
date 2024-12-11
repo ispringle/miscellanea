@@ -1,38 +1,58 @@
 (uiop:define-package aoc24.day.eight
-  (:use #:cl #:let-plus)
+  (:use #:cl #:iterate #:let-plus)
   (:import-from #:aoc24
    :get-input)
   (:import-from #:str
-   :lines))
+   :lines)
+  (:import-from #:alexandria
+   :map-combinations))
 (in-package #:aoc24.day.eight)
 
-(defparameter *test-input* "")
+(defparameter *test-input* "............
+........0...
+.....0......
+.......0....
+....0.......
+......A.....
+............
+............
+........A...
+.........A..
+............
+............")
 
 (defparameter *input* (get-input 8))
 
+(defun parse (s)
+  (iter
+    (with ants = (make-hash-table :test #'equal))
+    (with grid = (make-hash-table :test #'equal :size (length s)))
+    (for line in (lines s)) (for row from 0)
+    (iter (for col from 0) (for char in-string line)
+          (let ((coord (complex row col)))
+            (setf (gethash coord grid) t)
+            (unless (char= char #\.) (push coord (gethash char ants)))))
+    (finally (return (values ants grid)))))
+
 (defun solve (input)
-  input)
+  (let+ (((&values ants grid) (parse input))
+         (nodes (make-hash-table))
+         (lines (make-hash-table)))
+    (maphash #'(lambda (_ locs) (declare (ignore _))
+               (map-combinations
+                #'(lambda (pair)
+                    (let+ ((diff (apply #'- pair)) ((p1 p2) pair))
+                      (dolist (loc (list (+ p1 diff) (- p2 diff)))
+                        (when (gethash loc grid)
+                          (setf (gethash loc nodes) t)))
+                      (maphash #'(lambda (loc _) (declare (ignore _))
+                                   (when (zerop (imagpart (/ (- loc p1) diff)))
+                                     (setf (gethash loc lines) t)))
+                               grid)))
+                locs :length 2))
+             ants)
+    (list (hash-table-count nodes)
+          (hash-table-count lines))))
 
-(solve *test-input*)
-(solve *input*)
-
-(defun read-grid (input)
-  (loop for line in (lines input)
-        collect (coerce (string-trim '(#\Space #\Newline) line) 'list)))
-
-(defun collinear-p (p1 p2 p3)
-  "Return `t' if all three points are collinear, else `nil'."
-  (let+ (((x1 y1) p1) ((x2 y2) p2) ((x3 y3) p3))
-    (= (/ (- y2 y1) (- x2 x1))
-       (/ (- y3 y2) (- x3 x2)))))
-
-(defun collinear-point (p1 p2 n)
-  "Finds a point collinear to `p1' & `p2' which is `n' away."
-  (let+ (((x1 y1) p1) ((x2 y2) p2)
-         (dx (- x2 x1)) (dy (- y2 y1))
-         (distance (sqrt (+ (* dx dy) (* dy dy))))
-         (unit-x (/ dx distance)) (unit-y (/ dy distance)))
-    (list (+ x1 (* n unit-x)) (+ y1 (* n unit-y)))))
-
-(collinear-point '(0 0) '(1 1) 2)
-(collinear-p '(1 2) '(4 5) '(4 5))
+(time 
+ (solve *input*))

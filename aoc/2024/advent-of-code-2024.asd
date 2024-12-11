@@ -13,7 +13,8 @@
                "cl-ppcre"
                "fn"
                "drakma"
-               "let-plus")
+               "let-plus"
+               "alexandria")
   :components ((:module "src"
                 :components
                 ((:file "main")
