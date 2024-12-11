@@ -1,5 +1,5 @@
 (uiop:define-package aoc24.day.eleven
-  (:use #:cl #:iterate #:let-plus)
+  (:use #:cl #:let-plus)
   (:import-from #:aoc24
    :get-input)
   (:import-from #:str
@@ -13,9 +13,8 @@
 (defparameter *input* (get-input 11))
 
 (defun parse (s)
-  (coerce (mapcar #'parse-integer
-                  (split " " s :omit-nulls t))
-          'vector))
+  (mapcar #'parse-integer
+          (split " " s :omit-nulls t)))
 
 (defun count-digits (n)
   "Count the number of digits in `n'."
@@ -29,37 +28,27 @@ Example (split-number 1234) => 12 34"
          (right (mod n div)))
     (list left right)))
 
-(defun split-stone (stone)
-  (let+ (((left right) (split-number stone)))
-    (list left right)))
+(defun count-stones-re (stone blinks total-blinks &optional (cache (make-hash-table :test 'equal)))
+  (let ((cache-key (list stone blinks)))
+    (or (gethash cache-key cache)
+        (let ((result (cond 
+                        ((= blinks total-blinks) 1)
+                        ((zerop stone) (count-stones-re 1 (1+ blinks) total-blinks cache))
+                        ((evenp (count-digits stone))
+                         (let+ (((left right) (split-number stone)))
+                           (+ (count-stones-re left (1+ blinks) total-blinks cache)
+                              (count-stones-re right (1+ blinks) total-blinks cache))))
+                        (t (count-stones-re (* stone 2024) (1+ blinks) total-blinks cache)))))
+          (setf (gethash cache-key cache) result)
+          result))))
 
-(defun transform-stone (stone)
-  (declare (type integer stone))
-  (cond 
-    ((= stone 0) (list 1))
-    ((evenp (count-digits stone)) (split-stone stone))
-    (t (list (* stone 2024)))))
-
-(defun blink (stones)
-  (declare (type (vector integer) stones))
-  (let* ((transformed (make-array (max 2 (* 2 (length stones)))
-                                  :element-type 'integer
-                                  :adjustable t
-                                  :fill-pointer 0)))
-    (iter
-      (for stone in-vector stones)
-      (iter (for new-stone in (transform-stone stone))
-        (vector-push-extend new-stone transformed)))
-    transformed))
-
-(defun do-blink (stones blink-cnt)
-  (iter
-    (repeat blink-cnt)
-    (setf stones (blink stones)))
-  (length stones))
+(defun count-stones (stones total-blinks)
+  (reduce #'+ (mapcar (lambda (n) (count-stones-re n 0 total-blinks)) 
+                      stones)))
 
 (defun solve (input)
-  (do-blink (parse input) 75))
+  (let ((stones (parse input)))
+    (list (count-stones stones 25)
+          (count-stones stones 75))))
 
-(solve *test-input*)
 (solve *input*)
