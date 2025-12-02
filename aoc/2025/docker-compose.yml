@@ -1,0 +1,7 @@
+services:
+  aoc:
+    build: .
+    volumes:
+      - .:/aoc:ro
+    working_dir: /aoc
+
